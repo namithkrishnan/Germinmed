@@ -1,0 +1,258 @@
+﻿@model IEnumerable<Germinmed.Models.ProductViewModel>
+@using System.Text.RegularExpressions;
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+}
+@{
+    var item1 = Model.FirstOrDefault();
+
+}
+<link href="~/Content/css/lightbox.css" rel="stylesheet" />
+<link href="~/Content/css/ALightBox.css" rel="stylesheet" />
+<link href="~/Content/css/lightslider.css" rel="stylesheet" />
+<style>
+
+
+    a.morelink {
+        font-size: 16px;
+        color: #e68c01;
+        font-weight: 600;
+        padding-top: 15px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    a.morelink1 {
+        font-size: 16px;
+        color: #e68c01;
+        font-weight: 600;
+        padding-top: 15px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    #more {
+        display: none;
+    }
+
+    #more1 {
+        display: none;
+    }
+</style>
+
+<main>
+    <section class="banner products-banner" style="@((item1.InnerBannerImage != null && item1.InnerBannerImage != "/AppFiles/Images/Default.png") ? "background:url(" + item1.InnerBannerImage + ") no-repeat;background-size: cover" : "background:url(/content/images/products-banner.jpg) no-repeat;background-size: cover" )">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="head-left">
+                        <h1>Product</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="head-right">
+                        <ul class="list-inline">
+                            <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li><span>/</span></li>
+                            <li><a href="@Url.Action("Index","Product")">Product</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="product-details">
+        <div class="container">
+            <div class="row pad-tb-80">
+                <div class="col-md-12">
+                    <div class="breadcrub" style="text-align:left;">
+                        <ul class="list-inline">
+                            <li> Home</li>
+                            <li><span> / </span> </li>
+
+                            <li> @Html.Action("GetCategoryNameBreadcrumb", "Product", new { id = item1.CategoryId })  </li>
+                            <li><span> / </span> </li>
+                            <li> <a href=""> @item1.ProductName</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6  " data-wow-delay="">
+                    <div class="slider-image">
+                        <div class="center">
+                            <ul id="lightSlider">
+                                @foreach (var item in Model)
+                                {
+
+                                    <li data-thumb="@Url.Content(item.ImageUrl)"> <a class="example-image-link" href="@Url.Content(item.ImageUrl)" data-lightbox="example-set"><img src="@Url.Content(item.ImageUrl)" /></a> </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-wow-delay="">
+                    <div class="product-desc">
+                        @{
+                            if (item1.IsOffer && item1.OfferPercentage != null)
+                            {
+                                <h3>@item1.ProductName    <span> @item1.OfferPercentage % OFF</span> </h3>
+                            }
+                            else
+                            {
+                                <h3>@item1.ProductName </h3>
+                            }
+
+                        }
+                        <ul class="width-50 product-list row">
+                            <li class="col-md-6 col-sm-6 col-xs-6 left-item">Category <span>:</span></li>
+                            <li class="col-md-6  col-sm-6 col-xs-6">@item1.CategoryName</li>
+                            <li class="col-md-6 col-sm-6 col-xs-6 left-item">Brand <span>:</span></li>
+                            <li class="col-md-6 col-sm-6 col-xs-6">@item1.BrandTitle</li>
+                            <li class="col-md-6  col-sm-6 col-xs-6 left-item">Item Code <span>:</span></li>
+                            <li class="col-md-6 col-sm-6 col-xs-6">@item1.ItemCode</li>
+                        </ul>
+                        @{ if (@item1.WebUrl != null)
+                            {
+
+
+                                <div class="web-link"> <img src="~/Content/images/blue-link.png"> <a href="@item1.WebUrl" target="_blank">@item1.WebUrl</a> </div>
+                            }
+                        }
+                        <ul class="list-inline hor-btn">
+                            <li><a class="orange-btn" href="@Url.Action("Index", "Cart", new { id = item1.Id })"><img src="~/Content/images/cart-bag.png">&nbsp;Add to Cart</a></li>
+                            @{ if (@item1.VideoUrl != null)
+                                {
+
+                                    <li><a class="white-btn alb_item" href="@item1.VideoUrl" target="_blank"><img src="~/Content/images/video-icon.png">&nbsp;Watch Video</a></li>
+                                }
+                            }
+                            @{ if (@item1.Catalogue != null)
+                                {
+
+
+                                    <li class="mt"><a class="btn-or" href="@Url.Content("~/" + item1.Catalogue)" target="_blank" download>DOWNLOAD CATELOGUE</a></li>
+                                }
+                            }
+
+                        </ul>
+
+
+                        <div class="product-inner-desc  " data-wow-delay="">
+                            <h4 class="pro-title">Product <span>Details</span></h4>
+                            <div class="sub-desc"></div>
+                            <div class="">
+                                @{
+                                    string dLessString = "";
+                                    string dMoreString = "";
+                                    string dFullString = "";
+
+                                    if (item1.Description != null)
+                                    {
+                                        if (item1.Description.Length > 200)
+                                        {
+                                            dLessString = item1.Description.Substring(0, 200);
+                                            dMoreString = item1.Description.Substring(199, item1.Description.Length - 200);
+                                            dFullString = dLessString + "<span id=\"dots1\">...</span><span id=\"more1\">" + dMoreString + "</ span >";
+                                            @Html.Raw(dFullString);
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(item1.Description);
+
+                                        }
+                                    }
+                                }
+
+                            </div>
+                            <a onclick="myFunction1()" id="myBtn1" class="morelink1">Read more</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 " data-wow-delay="">
+                    <div class="tech-bg">
+                        <h3>Technical Specifications</h3>
+                        <div class="" >
+                            @{
+                                //string LessString = "";
+                                //string MoreString = "";
+                                //string FullString = "";
+
+                                if (item1.TechnicalSpecifications != null)
+                                {
+                                    @*if (item1.TechnicalSpecifications.Length > 200)
+                                    {
+                                        LessString = item1.TechnicalSpecifications.Substring(0, 200);
+                                        MoreString = item1.TechnicalSpecifications.Substring(199, item1.TechnicalSpecifications.Length - 200);
+                                        FullString = LessString + "<span id=\"dots\">...</span><span id=\"more\">" + MoreString + "</ span >";
+                                        @Html.Raw(FullString);
+
+                                    }
+                                    else
+                                    {*@
+                                        @Html.Raw(item1.TechnicalSpecifications);
+
+                                    //}
+                                }
+                            }
+                        </div>
+                        @*<a onclick="myFunction()" id="myBtn" class="morelink">Read more</a>*@
+
+                    </div>
+                </div>
+    </section>
+</main>
+
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="~/Scripts/js/lightbox.js"></script>
+    <script src="~/Scripts/js/ALightBox.js"></script>
+    <script src="~/Scripts/js/index.js"></script>
+
+    <script>
+        $('body').ALightBox({
+            showYoutubeThumbnails: true
+        });
+
+        function myFunction() {
+            var dots = document.getElementById("dots");
+            var moreText = document.getElementById("more");
+            var btnText = document.getElementById("myBtn");
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Read more";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read less";
+                moreText.style.display = "inline";
+            }
+        }
+
+        function myFunction1() {
+            var dots = document.getElementById("dots1");
+            var moreText = document.getElementById("more1");
+            var btnText = document.getElementById("myBtn1");
+
+            if (dots.style.display === "none") {
+                dots.style.display = "inline";
+                btnText.innerHTML = "Read more";
+                moreText.style.display = "none";
+            } else {
+                dots.style.display = "none";
+                btnText.innerHTML = "Read less";
+                moreText.style.display = "inline";
+            }
+        }
+
+
+
+    </script>
+}

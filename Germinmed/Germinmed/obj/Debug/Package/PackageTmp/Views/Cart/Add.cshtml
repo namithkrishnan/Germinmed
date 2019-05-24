@@ -1,0 +1,71 @@
+﻿@using Germinmed.Models
+@{
+    /**/
+
+    Layout = null;
+}
+
+@{ if (Session["cart"] != null)
+    {
+
+
+        foreach (Cart item in (List<Cart>)Session["cart"])
+        {
+
+            <tr>
+                <td class="product-remove">
+                    <a href="@Url.Action("Remove", "Cart", new { id = item.Product.Id })">×</a>
+                </td>
+                <td class="product-cart-img">
+                    <a href="#"><img src="@Url.Content(item.Product.ImageUrl)" width="100" alt=""></a>
+                </td>
+                <td class="product-name">
+                    <a href="#">@item.Product.ProductName</a>
+                </td>
+
+                <td class="product-quantity">
+
+                    <div class="quantity buttons_added">
+                        @*<input type="button" value="-" class="minus">
+                        <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="3" pattern="" inputmode="">
+                        <input type="button" value="+" class="plus">*@
+
+
+                        <input type="button" value="-" class="minus"
+                               onclick="AddCartQty('@Url.Action("Add", "Cart", new { id = item.Product.Id, Qty = -1 })');">
+                        <input class="input-text qty text" type="text" value="@(item.Quantity)" readonly id="txtQty" title="Qty" size="3" />
+                        <input type="button" value="+" class="plus"
+                               onclick="AddCartQty('@Url.Action("Add", "Cart", new { id = item.Product.Id, Qty = 1 })');" />
+                    </div>
+                </td>
+
+                <td class="product-price">
+                    @{if (Session["userID"] != null)
+                        {
+                            <span>@*<del>QAR 74.00</del>*@ <ins>QAR @item.Product.Price</ins></span>
+                        }
+                    }
+
+                </td>
+                <td class="product-total-price">
+                    @{if (Session["userID"] != null)
+                        {
+                            <span>QAR @(item.Product.Price * item.Quantity)</span>
+                            }
+                        }
+                        </td>
+            </tr>
+        }
+
+
+
+    }
+    else
+    {
+
+        <tr>
+            <td colspan="6">THere is no items in cart</td>
+        </tr>
+
+    }
+    }

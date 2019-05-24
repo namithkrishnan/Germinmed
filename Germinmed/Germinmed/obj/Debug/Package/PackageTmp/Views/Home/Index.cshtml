@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Germinmed.Models.Banner>
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+   
+}
+<main>
+    <section class="slider">
+        <div id="responsive_wrapper">
+            <div class="rev_slider_wrapper">
+                <div class="rev_slider" style="background:#a0a1a5;" data-version="5.0">
+                    <ul>
+                        @{if (Model.Count() >= 1)
+                            {
+                                foreach (var item in Model.OrderBy(x => x.DisplayOrder))
+                                {
+                                    <li data-transition="fade"> <img src="@Url.Content(item.ImageUrl)" alt=""> </li>
+
+                                }
+                            }
+                            else
+                            {
+                                <li data-transition="fade"> <img src="~/Content/images/sliders/slider-1.jpg" alt=""> </li>
+                                <li data-transition="fade"> <img src="~/Content/images/sliders/slider-2.jpg" alt=""> </li>
+                                <li data-transition="fade"> <img src="~/Content/images/sliders/slider-3.jpg" alt=""> </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+                <!-- rev_slider -->
+            </div>
+        </div>
+    </section>
+    <section class="about pad-tb-80">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="about-image"> <img src="~/Content/images/about-image.png" alt="" class="img-responsive"> </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="about-top-right">
+                        <h1>About <span>Us</span></h1>
+                        <p class="first-para">GerminMED is a company, which is dedicated to supplying medical products, that are ideally suited for the medium sized clinical lab and hospital market.</p>
+                        <p>It is our goal to provide high quality products at prices, which will enable you to fully penetrate the market in a profitable manner. We will be quick to respond to your needs. We consider our customers vital to our success and we will listen to all that you have to say. Our product line includes Dental Equipments , UltraSound Systems, Monitoring Systems , ECG & EEG , Material and Supply .</p>
+                        <a class="red-btn" href="@Url.Action("Index", "Aboutus")">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="about">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5    wow fadeInUp" data-wow-delay="0.2s" style="visibility:visible">
+                    <div class="abt-left">
+                        <div class="product">
+                            <h2>Featured <span>Product</span></h2>
+                            <div id="demos">
+                                <div class="large-12 columns">
+                                    <div class="owl-carousel owl-theme" id="owl_1">
+
+                                        @Html.Action("GetFeaturedProducts", "Home")
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* tabs start *@
+
+                @Html.Action("GetRootCategories", "Home")
+                @* tabs end *@
+            </div>
+        </div>
+    </section>
+    <section class="products-brands">
+        @Html.Action("GetAllBrand", "Home")
+        @*<link href="~/Content/css/animate.css" rel="stylesheet" />*@
+    </section>
+</main>
+

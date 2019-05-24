@@ -1,0 +1,98 @@
+﻿@using Germinmed.Models;
+@model IEnumerable<Germinmed.Models.ProductViewModel>
+@{
+    /**/
+
+    /**/
+
+    ViewBag.Title = "Offer";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+    if (Url.RequestContext.RouteData.Values["id"] == null)
+    {
+        Url.RequestContext.RouteData.Values["id"] = 1;
+    }
+}
+
+<!-- new design   -->
+
+<main id="divMain">
+    <section class="banner products-banner" style="@((ViewBag.InnerBanner!=null && ((InnerBanner)ViewBag.InnerBanner).ImageUrl!="/AppFiles/Images/Default.png") ?"background:url("+Url.Content(((InnerBanner)ViewBag.InnerBanner).ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/products-banner.jpg) no-repeat;background-size: cover" )">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="head-left">
+                        <h1>Offer</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="head-right">
+                        <ul class="list-inline">
+                            <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                            <li><span>/</span></li>
+                            <li>Offer</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="container">
+            <div class="row pad-tb-80">
+                <div class="col-md-12">
+
+                </div>
+
+                <!-- Tab panes -->
+
+                <div class="product-inner">
+                    <div class="col-md-3">
+                        <div class="sidebar sidebar-left zee">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <h1>@Html.Action("GetCategoryNameByID","Product")</h1>
+                        <div class="product-right">
+                            <div class="breadcrub">
+                                <ul class="list-inline">
+                                    <li> Home</li>
+                                    <li><span> / </span> </li>
+
+                                    <li> <a class="bp" href="@Url.Action("Index","Offer")"> Offer</a></li>
+                                    <li><span> / </span> </li>
+                                    <li> @Html.Action("GetCategoryNameBreadcrumb", "Product")</li>
+                                </ul>
+                            </div>
+                            <div class="row">
+
+                                @Html.Action("ProductAllOffer", "Offer")
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    </section>
+</main>
+<!--End New Desgin-->
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ScriptsClientSide.js"></script>
+
+
+}
+
+
+

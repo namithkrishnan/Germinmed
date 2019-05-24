@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Germinmed.Models.Brands>
+@{
+    Layout = null;
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="datatable-wide">
+    <table class="table table-hover" id="brandTable">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageUrl)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Url)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ShowInBrandPage)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SkipWhile(x=>x.Id==0))
+            {
+            <tr>
+
+                <td>
+                    <img src="@Url.Content(item.ImageUrl)" style="margin:10px" height="100" width="150" />
+
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Url)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShowInBrandPage)
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEdit","Brand",new {id=item.Id })');"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("Delete","Brand",new {id=item.Id})')"><i class="fa fa-trash fa-lg"></i></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    </div>

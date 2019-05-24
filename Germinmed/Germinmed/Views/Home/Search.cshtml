@@ -1,0 +1,111 @@
+﻿@model Germinmed.Models.SearchViewModel
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+}
+
+
+<main>
+    <section class="banner events-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="head-left">
+                        <h1>Search Results</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="head-right">
+                        <ul class="list-inline">
+                            <li><a href="">Home</a></li>
+                            <li><span>/</span></li>
+                            <li>Events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="events">
+        <div class="container">
+            <div class="row pad-tb-80">
+                <div class="col-md-12">
+                    <div class="row">
+
+
+
+
+                        @{
+                            double timer = 0.1;
+                            bool noResult = false;
+                            if (Model.ProductsList != null)
+                            {
+                                <h3>Products</h3>
+                                <br />
+                                foreach (var item in Model.ProductsList)
+                                {
+                                    timer = timer + 0.1;
+                                    <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
+                                        <div class="row">
+
+                                            <div class="col-md-8">
+                                                <div class="event-desc">
+                                                    <h2><a href="@Url.Action("Details", "Product", new { id = item.Id })">@item.ProductName</a></h2>
+                                                    <p>@Html.Raw(item.Description)</p>
+                                                    <a href="@Url.Action("Details", "Product", new { id = item.Id })">Read More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                noResult = true;
+                            }
+                        }
+                    </div>
+                    <div class="row">
+
+
+                        @{ if (Model.EventList != null)
+                            {
+                                <h3>Events</h3>
+                                <br />
+                                foreach (var item in Model.EventList)
+                                {
+                                    timer = timer + 0.1;
+                                    <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
+                                        <div class="row">
+
+                                            <div class="col-md-8">
+                                                <div class="event-desc">
+                                                    <h2><a href="@Url.Action("EventDetails", "Events", new { id = item.Id })">@item.Title</a></h2>
+                                                    <p>@item.Description</p>
+                                                    <a href="@Url.Action("EventDetails", "Events", new { id = item.Id })">Read More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (noResult == true)
+                                {
+                                    <h4>No Results found</h4>
+                                }
+                            }
+                        }
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</main>
+

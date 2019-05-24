@@ -1,0 +1,44 @@
+﻿@model Germinmed.Models.Order
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <h4>Order</h4>
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProducName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProducName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+    </dl>
+</div>
+

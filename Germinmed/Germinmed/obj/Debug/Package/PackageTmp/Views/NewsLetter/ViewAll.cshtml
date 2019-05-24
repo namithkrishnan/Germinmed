@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Germinmed.Models.NewsLetter>
+
+@{
+    Layout = null;
+}
+
+<div class="datatable-wide">
+    <table class="table table-hover" id="newsLetterTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+               
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipients)
+                </th>
+               
+               
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recipients)
+                </td>
+               
+               
+              
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEdit","NewsLetter",new {id=item.Id })');"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("Delete","NewsLetter",new {id=item.Id})')"><i class="fa fa-trash fa-lg"></i></a>
+                </td>
+                
+            </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

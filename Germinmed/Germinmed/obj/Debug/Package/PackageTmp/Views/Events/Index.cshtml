@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Germinmed.Models.Events>
+@using Germinmed.Models;
+@{
+    ViewBag.Title = "Events";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+}
+
+<main>
+    <section class="banner events-banner" style="@(ViewBag.InnerBanner!=null ?"background:url("+Url.Content(((InnerBanner)ViewBag.InnerBanner).ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/events-banner.jpg) no-repeat;background-size: cover" )">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="head-left">
+                        <h1>Events</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="head-right">
+                        <ul class="list-inline">
+                            <li><a href="">Home</a></li>
+                            <li><span>/</span></li>
+                            <li>Events</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="events">
+        <div class="container">
+            <div class="row pad-tb-80">
+                <div class="col-md-12">
+                    <div class="row">
+
+                        @{ double timer = 0.1; }
+                        @foreach (var item in Model)
+                        {
+                            timer = timer + 0.1;
+                            <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="event-image">
+                                            <img src="@Url.Content(item.ImageUrl)" alt="" class="img-responsive">
+                                            <div class="date"> <span class="day">@item.Date.Value.ToString("dd")</span> <span class="year">@item.Date.Value.ToString("MMM yy")</span> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="event-desc">
+                                            <h2><a href="@Url.Action("EventDetails","Events", new { id = item.Id })">@item.Title</a></h2>
+                                            <p>@item.Description</p>
+                                            <a href="@Url.Action("EventDetails","Events", new { id = item.Id })">Read More</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>

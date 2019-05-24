@@ -1,0 +1,70 @@
+﻿@model Germinmed.Models.UserViewModel
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+}
+
+    <main>
+        <section class="banner contactus-banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="head-left">
+                            <h1>Checkout</h1>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="head-right">
+                            <ul class="list-inline">
+                                <li><a href="">Home</a></li>
+                                <li><span>/</span></li>
+                                <li>Checkout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="contact">
+            <div class="container">
+                <div class="row pad-tb-80">
+                    <div class="col-md-8">
+                        <div class="hd_footer hd_margin" style="background:#FFF; padding-top:0px;">
+                            <div class="enq_mailsection clearfix form-box">
+                                @using (Html.BeginForm("OrederConfirm", "Cart"))//data-restUrl,data-restUrl1
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <form class="row">
+                                        <div class="form-group col-md-4 padding_left margin_botttom">
+                                            <label class="form-content">Name</label>
+                                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form_border bg_white", type = "text",
+                                           id = "exampleInputEmail1" } })
+                                            @*<input type="email" class="form_border bg_white" id="exampleInputEmail1" placeholder="">*@
+                                        </div>
+                                        <div class="form-group col-md-4 padding_left margin_botttom">
+                                            <label class="form-content">Phone</label>
+                                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form_border bg_white", type = "text",
+                                           id = "exampleInputEmail2" } })
+                                        </div>
+                                        <div class="form-group col-md-4 padding_left margin_botttom">
+                                            <label class="form-content">Email</label>
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form_border bg_white", type = "text",
+                                           id = "exampleInputEmail3" } })
+                                        </div>
+                                        <div class="form-group col-md-12 padding_left margin_botttom">
+                                            <label class="form-content">Address</label>
+                                            @Html.TextAreaFor(model => model.Address, new { htmlAttributes = new { @class = "form_border bg_white", rows = "6" } })
+                                            @*<textarea class="form_border bg_white" rows="6" placeholder=""></textarea>*@
+                                        </div>
+                                        <div class="form-group col-md-12"> <input type="submit" class="msg_contacthd" value="SUBMIT" />  </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+

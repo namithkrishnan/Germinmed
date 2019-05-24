@@ -1,0 +1,195 @@
+﻿@model Germinmed.Models.Products
+
+@{
+                  Layout = null;
+}
+
+@using (Html.BeginForm("AddOrEdit", "Products", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);",
+    data_restUrl = Url.Action("AddOrEdit", "Products", new { id = 0 }) }))//data-restUrl,data-restUrl1
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ImagePath)
+            @Html.HiddenFor(model => model.InnerBannerImage)
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.WebUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.WebUrl, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.WebUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.VideoUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.VideoUrl, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.VideoUrl, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsFeatured, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.IsFeatured, new { @class = "form-check-input", onclick = "IsFeaturedclick();" })
+                        @Html.ValidationMessageFor(model => model.IsFeatured, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group" id="txtImage">
+                    @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <img src="@Url.Content(Model.ImagePath)" style="margin:10px" height="200" width="200" id="imagePreview1" />
+                        <input type="file" name="ImageUpload" id="ImageUpload" accept="image/jpeg,image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview1'))" />
+                        <p class="text-danger">Please upload image Size  560px X 305px</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InnerBannerImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <img src="@Url.Content(Model.InnerBannerImage)" style="margin:10px" height="200" width="200" id="imagePreview2" />
+                        <input type="file" name="ImageUpload1" id="ImageUpload1" accept="image/jpeg,image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview2'))" />
+                        <p class="text-danger">Please upload image Size  1919px X 206px</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsOffer, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.CheckBoxFor(model => model.IsOffer, new { @class = "form-check-input" })
+                        @Html.ValidationMessageFor(model => model.IsOffer, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.OfferPercentage, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.OfferPercentage, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.OfferPercentage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class=" col-md-10">
+                        @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.CategoryList, "Id", "Title", "[None]"), new { @class = "form-control validate[required]" })
+
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BrandId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.BrandList, "Id", "Title"), new { @class = "form-control" })
+
+                        @Html.ValidationMessageFor(model => model.BrandId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ItemCode, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemCode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+              
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Catalogue, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <input type="file" name="CatalogueUplaoder" id="CatalogueUplaoder"  >
+                    <p class="help-block">Please Uplaod PDF File.</p>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <a class="fa fa-question-circle">
+                <div><img src="~/AppFiles/Images/productDetailsInfo.png" /></div>
+            </a>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-offset col-md-2" })
+
+                <div class="col-md-10">
+
+                    @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control textarea", rows = "10" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TechnicalSpecifications, htmlAttributes: new { @class = "control-label col-md-offset col-md-2" })
+
+                <div class="col-md-10">
+
+                    @Html.TextAreaFor(model => model.TechnicalSpecifications, htmlAttributes: new { @class = "form-control textarea", rows = 10 })
+                    @Html.ValidationMessageFor(model => model.TechnicalSpecifications, "", new { @class = "text-danger" })
+
+                </div>
+
+            </div>
+            <br />
+            <div class="col-md-10">
+                <div class="form-group">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="submit" class="btn btn-primary" />
+                    @if (Model.Id != 0)
+                    {
+                        <a class="btn btn-success" onclick="refreshAddNewTab('@Url.Action("AddOrEdit", "Products", new { id = 0 })',false)"><i class="fa fa-pluse">Add New</i></a>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+            </div>
+
+
+}
+
+
+
+

@@ -1,0 +1,121 @@
+﻿@using Germinmed.Models;
+@model Germinmed.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "Offer";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+}
+
+<main id="divMain">
+    <section class="banner products-banner"  style="@(ViewBag.InnerBanner!=null ?"background:url("+Url.Content(((InnerBanner)ViewBag.InnerBanner).ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/offers-banner.jpg) no-repeat;background-size: cover" )">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="head-left">
+                        <h1>Offers</h1>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="head-right">
+                        <ul class="list-inline">
+                            <li><a href="">Home</a></li>
+                            <li><span>/</span></li>
+                            <li>Offers</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="products">
+        <div class="container">
+            <div class="row pad-tb-80">
+                <div class="col-md-12">
+
+                    <div class="top-links">
+                        <ul class="list-inline" id="rootcat">
+
+                            @foreach (Category item in Model.Category)
+                            {
+                                if (item.ParentId == 0)
+                                {
+                                    if (Url.RequestContext.RouteData.Values["id"] != null)
+                                    {
+                                        <li class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "")">
+                                            <a style="cursor:pointer" onclick="FilterProductListOffer('@Url.Action("GetAllProductsByCatActionOffer", "Product", new { id = item.Id })');
+                                                           FilterCategoryList('@Url.Action("GetAllCatByRootCategory", "Product", new { id = item.Id })');">@item.Title</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="">
+                                                        <a style="cursor:pointer" onclick="FilterProductListOffer('@Url.Action("GetAllProductsByCatActionOffer", "Product", new { id = item.Id })');
+                                                           FilterCategoryList('@Url.Action("GetAllCatByRootCategory", "Product", new { id = item.Id })');">@item.Title</a>
+                                                    </li>
+                                                }
+                                            }
+
+                                        }
+                            <li class="pull-right filter">
+                                Filter by Brand
+                                @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.Brands, "Id", "Title"), new { @class = "fil" })
+
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    @*@Html.Action("GetRootCategories", "Product")*@
+
+
+                </div>
+                <div class="product-inner">
+
+
+
+
+                    <div class="col-md-3" id="divGetAllCatByRootCategory">
+
+                        @Html.Action("GetAllCatByRootCategory", "Product", new { id = Url.RequestContext.RouteData.Values["id"] })
+
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="product-right">
+                            <div class="breadcrub">
+                                <ul class="list-inline">
+                                    <li> Home</li>
+                                    <li><span> / </span> </li>
+
+                                    <li> Dental </li>
+                                    <li><span> / </span> </li>
+                                    <li> Imaging System </li>
+                                    <li><span> / </span> </li>
+                                    <li> 3D Imaging System </li>
+                                    <li><span> / </span> </li>
+                                    <li> <a href="">  PAX-I3D Green Premium </a></li>
+                                </ul>
+                            </div>
+
+                            <div class="row" id="divGetAllProductsByCatActionOffer">
+
+                                @Html.Action("GetAllProductsByCatActionOffer", "Product", new { id = Url.RequestContext.RouteData.Values["id"] })
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/ScriptsClientSide.js"></script>
+
+}
+
+
+

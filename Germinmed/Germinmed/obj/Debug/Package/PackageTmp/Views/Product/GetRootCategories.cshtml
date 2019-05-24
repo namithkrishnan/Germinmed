@@ -1,0 +1,42 @@
+﻿@using Germinmed.Models;
+@model Germinmed.Models.ProductViewModel
+
+@{
+  
+
+    Layout = null;
+}
+<div class="top-links">
+    <ul class="list-inline">
+
+        @foreach (Category item in Model.Category)
+        {
+            if (item.ParentId == 0)
+            {
+                if (Url.RequestContext.RouteData.Values["id"] != null)
+                {
+                    <li class="@(item.Id.ToString()==Url.RequestContext.RouteData.Values["id"].ToString()?"active":"")" ><a href="" onclick="UpdateProductList('@Url.Action("GetAllProductsByCatAction","Product",new {id=item.Id })');">@item.Title </a></li>
+                }
+                else
+                {
+                    <li class=""><a href="#">@item.Title </a></li>
+                }
+            }
+
+        }
+        <li class="pull-right filter">
+            Filter by Brand
+            @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.Brands, "Id", "Title"))
+
+            @*<select>
+                <option>Select Brand</option>
+
+                <option value=""> Gnatus</option>
+                <option value="">Doctor Smile</option>
+                <option value="">Mocom</option>
+                <option value="">Inmoclinic</option>
+
+            </select>*@
+        </li>
+    </ul>
+</div>

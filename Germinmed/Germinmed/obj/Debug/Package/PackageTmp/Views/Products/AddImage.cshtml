@@ -1,0 +1,74 @@
+﻿@model Germinmed.Models.ProductImage
+@{
+    ViewBag.Title = "AddImage";
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("AddImage", "Products", FormMethod.Post,
+    new { enctype = "multipart/form-data",
+        onSubmit = "return jQueryAjaxPostAddImage(this);",
+        data_restUrl1 = Url.Action("ViewImagesByProduct", "Products", new { id = (Session["ProductId"] != null ? Session["ProductId"].ToString() : "0") }),
+         data_restUrl2 = Url.Action("AddImage", "Products", new { id = 0 })
+    }))//data-restUrl1
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal" id="form1">
+  
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ProductId)
+
+    <div class="box-body">
+        <h5>Select Images</h5>
+        <div class="form-group">
+
+            <div class="col-md-10">
+
+                <input type="hidden" name="txtProductId" id="txtProductId" />
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.ProductId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+        @if (Model.Id == 0)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <img src="@Url.Content(Model.ImageUrl)" style="margin:10px" height="200" width="200" id="imagePreview3" />
+                   
+                    <input type="file" name="ImageUpload" accept="image/jpeg,image/png" onchange="ShowImagePreview(this,document.getElementById('imagePreview3'))" required="" class="required" />
+                    <p class="text-danger">Please upload image Size  252px X 292px</p>
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(model => model.DisplayOrder, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DisplayOrder, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @if (Model.Id != 0)
+                {
+                    <a class="btn btn-success" onclick="refreshAddImageTab('@Url.Action("ViewImagesByProduct","Products",new {id=0})',false);refreshAddImageTab2('@Url.Action("AddImage","Products",new {id=0})',false)"><i class="fa fa-pluse">Add New</i></a>
+                }
+            </div>
+        </div>
+    </div>
+    </div>
+    }
+
+

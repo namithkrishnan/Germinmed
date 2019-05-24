@@ -1,0 +1,409 @@
+﻿@using Germinmed.Models
+@{
+
+    if (Request.Url.AbsoluteUri == "http://germinmed.com/" || Request.Url.AbsoluteUri == "http://www.germinmed.com/")
+    {
+        Response.Redirect("~/Home/Index1");
+    }
+   
+    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GerminMed</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+
+    @Styles.Render("~/Content/css-style")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body>
+    @*@Html.Raw("1---"+Request.Url.Scheme);
+        @Html.Raw("2---" + Request.Url.Host +  Request.ApplicationPath);
+        @Html.Raw("3--" + Request.Url.AbsolutePath);
+        @Html.Raw("4--" + Request.PhysicalApplicationPath);
+        @Html.Raw("5--" + Request.ApplicationPath);*@
+
+    <!--Header Section-->
+    <header>
+        <div class="header-top">
+            <div class="container-fluid">
+                <div class="header-top-right hide-up-mobile">
+                    <div class="spec-info">
+
+                        <ul class="list-inline">
+                            @{if (Session["userID"] != null)
+                                {
+                                    <li><a href="">Welcome @Session["userName"].ToString() </a></li>
+                                    <li>|</li>
+                                    <li> <a href="@Url.Action("LogOut","Login")">LogOut</a></li>
+                                    <li>|</li>
+                                }
+                            }
+
+
+
+                            <li><a href="">+974 44272 148111111</a></li>
+                            <li>|</li>
+                            <li><a href="@Url.Action("Index", "Contact")">Contact Us</a></li>
+                            <li>|</li>
+                            <li><a href="@Url.Action("Index", "Login")">My Account</a></li>
+
+                            @*<li><a href="">Staff Login</a></li>*@
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+                <div class="search-box mini-cart-area mob-show">
+                    <ul class="list-inline margin-zero ">
+                        <li class="cartt">
+                            <div class="dropdown">
+
+                                @{
+                                    int count1 = 0;
+                                    if (Session["cart"] != null)
+                                    {
+                                        count1 = ((List<Cart>)Session["cart"]).Count;
+                                    }
+                                }
+
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                <a class="cart-num" href=""><img src="~/Content/images/cart-num.png" alt="" width="30"> <span class="num">@(count1)</span></a></button>
+
+                                @{ if (count1 > 0)
+                                    {
+                                        <ul class="dropdown-menu cart">
+                                            <div class="row">
+                                                @Html.Action("CartDropDown", "Cart")
+
+                                                <div class="btns-vc">
+                                                    <a href="@Url.Action("Index","Cart")">
+                                                        <button class="fw btn btn-primary">View Cart</button>
+                                                    </a>
+                                                    <a href="@Url.Action("Checkout","Cart")"><button class="fw btn btn-success">Checkout</button></a>
+                                                </div>
+                                            </div>
+                                        </ul>
+                                    }
+                                }
+
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </li>
+                        <li class="order a margin-right33">
+                            <a class="yellow-btn" href="@Url.Action("Checkout","Cart")">Checkout<img src="~/Content/images/arrow-orange.png" width="15"></a>
+                        </li>
+                        <li class="order b margin-right33">
+                            <a class="blue-btn" href="@Url.Action("Index","Product")"><img src="~/Content/images/order.png" width="20">Order Online</a>
+                        </li>
+                    </ul>
+
+                    <!--pop up search-->
+
+                </div>
+
+
+
+
+
+
+                <div class="header-bottom view-xs  hidden-xs hidden-md hidden-md hidden-lg ">
+                    <div class="container">
+                        <div class="main">
+                            <nav class="navbar navbar-default bootsnav">
+
+                                <!-- Start Header Navigation -->
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu1"> <i class="fa fa-bars"></i> </button>
+                                </div>
+                                <!-- End Header Navigation -->
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="navbar-menu1">
+                                    <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Aboutus" ? "active" : "")"><a href="@Url.Action("Index", "Aboutus")">About Us</a></li>
+
+                                        <li class="@((ViewContext.RouteData.Values["Controller"].ToString() == "Product")  ? "active" : "") dropdown megamenu-fw">
+                                            <a href="@Url.Action("Index", "Product")">  Products</a>
+
+                                        </li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Brands" ? "active" : "")"><a href="@Url.Action("Index", "Brands")">Brands</a></li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "clients" ? "active" : "")"><a href="@Url.Action("Index", "clients")">Our References</a></li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Global" ? "active" : "")"><a href="@Url.Action("Index", "Global")">Global Presence</a></li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Offer" ? "active" : "")"><a href="@Url.Action("Index", "Offer")">Offers</a></li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Events" ? "active" : "")"><a href="@Url.Action("Index", "Events")">Events</a></li>
+                                        <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "CustomerSupport" ? "active" : "")"><a href="@Url.Action("Index", "CustomerSupport")">Technical Assistance</a></li>
+
+
+                                    </ul>
+                                </div>
+                                <!-- /.navbar-collapse -->
+
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-top-left">
+                    <div class="logo-left"><a href="@Url.Action("Index","Home")"> <img src="~/Content/images/logo.jpg" class="img-responsive" alt="logo"></a> </div>
+                </div>
+                <div class="header-top-right">
+                    <div class="spec-info">
+                        <ul class="list-inline">
+                            @{if (Session["userID"] != null)
+                                {
+                                    <li><a href="">Welcome @Session["userName"].ToString() </a></li>
+                                    <li>|</li>
+                                    <li> <a href="@Url.Action("LogOut","Login")">LogOut</a></li>
+                                    <li>|</li>
+                                }
+                            }
+                            <li><a href="@Url.Action("Index","Contact")">+974 44272 148</a></li>
+                            <li>|</li>
+                            <li><a href="@Url.Action("Index","Contact")">Contact Us</a></li>
+                            <li>|</li>
+                            <li><a href="@Url.Action("Index", "Login")">My Account</a></li>
+
+
+
+                        </ul>
+                    </div>
+                    <div class="search-box mini-cart-area">
+                        <ul class="list-inline margin-zero ">
+                            <li class="wave" id="first-wave"><img src="~/Content/images/wave-1.png"></li>
+                            <li class="search">
+                                @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+                                {
+
+                                    <input id="search" type="text" name="search" placeholder="Search..">
+                                    @*<input type="submit" name="btnSubmit" id="submit_btn" value="Submit" />*@
+
+                                }
+                            </li>
+                            <li class="wave"><img src="~/Content/images/wave-2.png"></li>
+                            <li>
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><img src="~/Content/images/lock.png">My Account <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("Index", "Login")">Login</a></li>
+                                        <li><a href="@Url.Action("Register","User")">Register</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown">
+                                    @{
+                                        int count = 0;
+                                        if (Session["cart"] != null)
+                                        {
+                                            count = ((List<Cart>)Session["cart"]).Count;
+                                        }
+                                    }
+
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                        <a class="cart-num" href=""><img src="~/Content/images/cart-num.png" width="30" alt="">
+                                        <span class="num">@(count)</span></a>
+                                    </button>
+                                    @{ if (count > 0)
+                                        {
+                                            <ul class="dropdown-menu cart">
+                                                <div class="row">
+                                                    @Html.Action("CartDropDown", "Cart")
+
+                                                    <div class="btns-vc">
+                                                        <a href="@Url.Action("Index","Cart")">
+                                                            <button class="fw btn btn-primary">View Cart</button>
+                                                        </a>
+                                                        <a href="@Url.Action("Checkout","Cart")"><button class="fw btn btn-success">Checkout</button></a>
+                                                    </div>
+                                                </div>
+                                            </ul>
+                                        }
+                                    }
+                                    <div class="clearfix"></div>
+                                </div>
+                            </li>
+
+                            <li class="order margin-right33"><a class="yellow-btn" href="@Url.Action("Checkout","Cart")">Checkout<img src="~/Content/images/arrow-orange.png" width="15"></a>
+                            <li class="order margin-right33"><a class="blue-btn" href="@Url.Action("Index","Product")"><img src="~/Content/images/order.png" width="20">Order Online</a>
+                        </ul>
+
+                        <!--pop up search-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-bottom hidden-small">
+            <div class="container">
+                <div class="main">
+                    <nav class="navbar navbar-default bootsnav">
+
+                        <!-- Start Header Navigation -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu"> <i class="fa fa-bars"></i> </button>
+                        </div>
+                        <!-- End Header Navigation -->
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="navbar-menu">
+                            <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Home" ? "active" : "")"><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Aboutus" ? "active" : "")"><a href="@Url.Action("Index", "Aboutus")">About Us</a></li>
+
+                                <li class="@((ViewContext.RouteData.Values["Controller"].ToString() == "Product")  ? "active" : "") dropdown megamenu-fw ">
+                                    <a href="@Url.Action("Index", "Product")" class="dropdown-toggle">Products</a>
+                                </li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Brands" ? "active" : "")"><a href="@Url.Action("Index", "Brands")">Brands</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Clients" ? "active" : "")"><a href="@Url.Action("Index", "Clients")">Our References</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Global" ? "active" : "")"><a href="@Url.Action("Index", "Global")">Global Presence</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Offer" ? "active" : "")"><a href="@Url.Action("Index", "Offer")">Offers</a></li>
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "Events" ? "active" : "")"><a href="@Url.Action("Index", "Events")">Events</a></li>
+
+
+
+                                <li class="@(ViewContext.RouteData.Values["Controller"].ToString() == "CustomerSupport" ? "active" : "")"><a href="@Url.Action("Index", "CustomerSupport")">Technical Assistance</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+
+
+    </header>
+    <!--Header Section Ends-->
+    <!--Main Section-->
+    @RenderBody()
+
+    <!--Main Section Ends-->
+    <!--Footer Section-->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-top-inner">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="location">
+                                <img src="~/Content/images/images_46.jpg" alt="" class="img-responsive">
+                                <div class="loc-inner">
+                                    <h5>Location</h5>
+                                    <p>
+                                        Germin MED<br>
+                                        P.O.Box : 11755 Doha. Qatar
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="location">
+                                <img src="~/Content/images/images_48.jpg" alt="" class="img-responsive">
+                                <div class="loc-inner">
+                                    <h5>Phone</h5>
+                                    <p>
+                                        Phone : 00974 44272 148<br>
+                                        Fax : 974 44 272174
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="location">
+                                <img src="~/Content/images/images_51.jpg" alt="" class="img-responsive">
+                                <div class="loc-inner">
+                                    <h5>Email</h5>
+                                    <p>
+                                        info@germinmed.com.qa<br>
+                                        sales@germinmed.com.qa
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+
+            <div class="container">
+                <div class="col-md-3">
+                    <div class="footer-logo"> <img src="~/Content/images/images_56.jpg" alt="" class="img-responsive"> </div>
+                    <h5>Stay Connected</h5>
+                    <ul class="list-inline soc-media">
+                        <li><a href=""><img src="~/Content/images/images_59.jpg"></a></li>
+                        <li><a href=""><img src="~/Content/images/images_61.jpg"></a></li>
+                        <li><a href=""><img src="~/Content/images/images_63.jpg"></a></li>
+                    </ul>
+                </div>
+
+                @Html.Action("GetCategoryFooter", "Home")
+
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6"> <span class="copy">Copyright © @DateTime.Now.Year  GerminMed. Doha, Qatar</span> </div>
+                    <div class="col-md-6"> <span class="pwrd">Powered by <a href=""><img src="~/Content/images/aura.jpg" alt=""></a></span> </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Footer Section Ends-->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog login-form">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="panel">
+                        <h2>Login</h2>
+                        <p>Please enter your email and password</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form id="Login">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                        </div>
+                        <div class="forgot"> <a href="#">Forgot password?</a> </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="loaderbody" id="loaderbody">
+        <div class="loader"></div>
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @RenderSection("scripts", required: false)
+
+   
+    <script src="~/Scripts/ScriptsClientSide.js"></script>
+
+
+
+</body>
+</html>

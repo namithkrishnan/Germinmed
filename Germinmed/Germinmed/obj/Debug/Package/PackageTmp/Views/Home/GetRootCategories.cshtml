@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Germinmed.Models.Category>
+
+@{
+    Layout = null;
+}
+
+
+
+<div class="col-md-7  wow fadeInUp" data-wow-delay="0.4s">
+    <ul class="prd">
+
+        @{int i = 0;
+            int subCount = 0;
+        }
+        @foreach (var item in Model.Take(4))
+        {
+
+            if (item.ParentId == 0)
+            {
+
+                <li>
+                    <a class="prc"  href="@Url.Action("Index", "Product",new { id=item.Id })"  >
+                        <div class="cn">
+
+
+                            @{
+                                if (item.Title.ToLower() == "dental")
+                                {
+                                    <img src="~/Content/images/dental-01.jpg" alt="Dental">
+                                    <div class="ovl"></div>
+                                    <div class="bdr">
+                                        <i><img src="~/Content/images/dental.png" width="51" height="48"></i>
+                                        <h3>@item.Title</h3>
+                                    </div>
+
+                                }
+                                if (item.Title.ToLower() == "medical")
+                                {
+                                    <img src="~/Content/images/medical-01.jpg" alt="Medical">
+                                    <div class="ovl"></div>
+                                    <div class="bdr">
+                                        <i><img src="~/Content/images/medical.png"    width="51" height="48"></i>
+                                        <h3>@item.Title</h3>
+                                    </div>
+                                }
+                                if (item.Title.ToLower() == "pharmaceutical")
+                                {
+                                    <img src="~/Content/images/pharmaceutical-01.jpg" alt="Pharmaceutical">
+                                    <div class="ovl"></div>
+                                    <div class="bdr">
+                                        <i><img src="~/Content/images/pharma.png" width="54" height="54"></i>
+                                        <h3>@item.Title</h3>
+                                    </div>
+                                }
+                                if (item.Title.ToLower() == "cosmetic")
+                                {
+                                    <img src="~/Content/images/cosmetic-01.jpg" alt="Cosmetic">
+                                    <div class="ovl"></div>
+                                    <div class="bdr">
+                                        <i><img src="~/Content/images/cosmetics-white.png" width="54" height="59"></i>
+                                        <h3>@item.Title</h3>
+                                    </div>
+                                }
+
+                            }
+
+
+                        </div>
+                    </a>
+                </li>
+
+           
+
+                i++;
+
+            }
+        }
+
+
+
+
+      
+    </ul>
+</div>
+
+
+
+

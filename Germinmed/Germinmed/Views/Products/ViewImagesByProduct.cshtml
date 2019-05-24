@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Germinmed.Models.ProductImage>
+@{ 
+    Layout = null;
+}
+
+<table class="table  table-hover" id="productImageTable">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DisplayOrder)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                @*<td id="prodid">
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>*@
+                <td>
+                    <img src="@Url.Content(item.ImageUrl)" style="margin:10px" height="100" width="150" />
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DisplayOrder)
+                </td>
+                <td>
+                    @*<a class="btn btn-primary btn-sm" onclick="EditImage('@Url.Action("AddImage","Products",new {id=item.Id,productid=item.ProductId })','#imageAdd');"><i class="fa fa-pencil fa-lg"></i></a>*@
+                    <a class="btn btn-danger btn-sm" onclick="DeleteImage('@Url.Action("DeleteImage","Products",new {id=item.Id,productid=item.ProductId})')"><i class="fa fa-trash fa-lg"></i></a>
+
+                </td>
+            </tr>
+        </tbody>
+    }
+
+</table>

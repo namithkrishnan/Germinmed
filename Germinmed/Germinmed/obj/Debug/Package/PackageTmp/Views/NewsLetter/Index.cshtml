@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#firstTab">View All</a></li>
+        <li class="active"><a data-toggle="tab" href="#secondTab">Add New </a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div id="firstTab" class=" tab-pane fade in ">@Html.Action("ViewAll")</div>
+        <div id="secondTab" class=" tab-pane fade in active ">@Html.Action("AddOrEdit")</div>
+    </div>
+</div>
+
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/dataTables.checkboxes.css" rel="stylesheet" />
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.checkboxes.min.js"></script>
+    <script>
+
+        function updateAllChecked() {
+            $('#Recipients').val('');
+            $("input[name='UserIdsToSelect']").each(function () {
+                if (this.checked) {
+                    let old_text = $('#Recipients').val() ? $('#Recipients').val() + ', ' : '';
+                    $('#Recipients').val(old_text + $(this).val());
+                }
+            })
+        }
+    
+
+        function checkAllbox() {
+            $("input[name='UserIdsToSelect']").change(function () {
+               // $("input[name='UserIdsToSelect']").prop("checked", this.checked);
+                updateAllChecked();
+            });
+
+            $("input[name='CheckAll']").change(function () {
+                if (this.checked) {
+                    $("input[name='UserIdsToSelect']").prop('checked', true).change();
+                } else {
+                    $("input[name='UserIdsToSelect']").prop('checked', false).change();
+                }
+            });
+         
+        }
+
+
+        $(document).ready(function () { 
+            $("input[name='UserIdsToSelect']").change(function () {
+                // $("input[name='UserIdsToSelect']").prop("checked", this.checked);
+                updateAllChecked();
+            });
+
+            $("input[name='CheckAll']").change(function () {
+                if (this.checked) {
+                    $("input[name='UserIdsToSelect']").prop('checked', true).change();
+                } else {
+                    $("input[name='UserIdsToSelect']").prop('checked', false).change();
+                }
+            });
+
+        });
+
+        function activatejQueryTable() {
+            $("#newsLetterTable").DataTable();
+      
+           
+
+        }
+        $(function () {
+            activatejQueryTable();
+        });
+
+      
+        $(function () {
+            //Add text editor
+            $("#Message").wysihtml5();
+        });
+
+        
+
+
+    </script>
+}

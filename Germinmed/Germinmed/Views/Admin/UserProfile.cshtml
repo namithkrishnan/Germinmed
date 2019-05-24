@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="nav-tabs-custom">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#firstTab">Profile</a></li>
+        <li ><a data-toggle="tab" href="#secondTab">Change Password </a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div id="firstTab" class=" tab-pane fade in active ">@Html.Action("UserDetails", "Admin", new { id = Url.RequestContext.RouteData.Values["id"] })</div>
+        <div id="secondTab" class=" tab-pane fade in  "> @Html.Action("ChangePassword", "Admin", new { id = Url.RequestContext.RouteData.Values["id"] })</div>
+    </div>
+  
+</div>
+    @section scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+    }

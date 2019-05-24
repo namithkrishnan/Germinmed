@@ -1,0 +1,118 @@
+﻿@model Germinmed.Models.InnerBanner
+@{
+    ViewBag.Title = "AboutUs";
+    Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
+}
+<main>
+
+    @{
+
+        if (Model != null)
+        {
+            <section class="banner about-banner" style="@(Model!=null ?"background:url("+Url.Content(Model.ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/about-banner.jpg) no-repeat;background-size: cover" )">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="head-left">
+                                <h1>About Us</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="head-right">
+                                <ul class="list-inline">
+                                    <li><a href="">Home</a></li>
+                                    <li><span>/</span></li>
+                                    <li>About Us</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        }
+        else
+        {
+            <section class="banner about-banner" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="head-left">
+                                <h1>About Us</h1>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="head-right">
+                                <ul class="list-inline">
+                                    <li><a href="">Home</a></li>
+                                    <li><span>/</span></li>
+                                    <li>About Us</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        }
+
+    }
+
+
+
+    <section class="about">
+        <div class="container">
+            <div class="row pad-tb-80">
+                <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="abt-img-left"> <img src="~/Content/images/about-left.jpg" class="img-responsive" alt=""> </div>
+                </div>
+                <div class="col-md-8 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="abt-text-right">
+                        <h2>GerminMED is a company, which is dedicated to supplying medical products, that are ideally suited for the medium sized clinical lab and hospital market.</h2>
+                        <p> It is our goal to provide high quality products at prices, which will enable you to fully penetrate the market in a profitable manner. We will be quick to respond to your needs.</p>
+                        <p>We consider our customers vital to our success and we will listen to all that you have to say.</p>
+                        <p>Our product line includes Dental Equipments , UltraSound Systems, Monitoring Systems , ECG & EEG , Material and Supply .</p>
+                        <p>In the future we will be adding several more products to our product line, as we feel the more products we can offer you the easier it makes your job, and the more willing you will be to work with us. We have access to a great variety of medical products.</p>
+                        <p>GerminMED is looking forward to working with you and we are awaiting your positive response</p>
+                    </div>
+                </div>
+            </div>
+            <div class="abt-bottom">
+                <div class="row">
+                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                        <div class="mission">
+                            <h3>Mission</h3>
+                            <div class="mis-inner">
+                                <div class="row">
+                                    <div class="col-md-4  pad-r-zero"> <img src="~/Content/images/quotation.jpg" alt="" class="img-responsive"> </div>
+                                    <div class="col-md-8 pad-l-zero">
+                                        <p>Providing our brands the solid infrastructure and effective support to become leaders across the Levant and Arab markets . </p>
+                                        <p>We aim to make our brands the most favorable with their respective consumers in the Levant and Arab markets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 wow fadeInUp" data-wow-delay="0.8s">
+                        <div class="vision">
+                            <h3>Vision</h3>
+                            <div class="vis-inner">
+                                <div class="row">
+                                    <div class="col-md-4  pad-r-zero"> <img src="~/Content/images/quotation.jpg" alt="" class="img-responsive"> </div>
+                                    <div class="col-md-8 pad-l-zero">
+                                        <p>Providing our brands the solid infrastructure and effective support to become leaders across the Levant and Arab markets .</p>
+                                        <p>We aim to make our brands the most favorable with their respective consumers in the Levant and Arab markets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="special-banner"> <img src="~/Content/images/excellence.jpg" class="img-responsive" ;> </section>
+    <section class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115443.24314772863!2d51.44195685882919!3d25.283992567535062!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C+Qatar!5e0!3m2!1sen!2sin!4v1525421962918" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </section>
+</main>

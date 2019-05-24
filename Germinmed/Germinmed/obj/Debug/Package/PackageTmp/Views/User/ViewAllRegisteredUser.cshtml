@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Germinmed.Models.Users>
+
+@{
+    Layout = null;
+}
+<div class="datatable-wide">
+    <table class="table table-hover" id="reguserTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.CreatedDate)
+                </th>
+                <th>Approve Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                    </td>
+                    <td>
+                        @{
+                            if (item.IsActive == true)
+                            {
+                                <a class="btn btn-sm" ><i class="fa fa-check-square-o fa-2x" aria-hidden="true" ></i></a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm" onclick="Approve('@Url.Action("Approve","User",new {id=item.Id})','check_@(item.Id)')"><i class="fa fa-square-o fa-2x" aria-hidden="true"></i></a>
+                            }
+
+                        }
+                        @*<input type="checkbox" id="check_@(item.Id)" name="UserIdsToSelect" checked="@item.IsActive" onclick="Approve('@Url.Action("Approve","User",new {id=item.Id})','check_@(item.Id)')" />*@
+                    
+                    </td>
+                    <td>
+
+                       
+                        
+
+                        <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("DeleteRegUser","User",new {id=item.Id})')"><i class="fa fa-trash fa-lg"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

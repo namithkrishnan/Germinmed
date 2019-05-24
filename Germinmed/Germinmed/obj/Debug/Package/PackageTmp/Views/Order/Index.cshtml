@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="nav-tabs-custom">
+
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#firstTab">Orders</a></li>
+        <li class="active"><a data-toggle="tab" href="#secondTab"> </a></li>
+
+    </ul>
+    <div class="tab-content">
+        <div id="firstTab" class=" tab-pane fade in active ">@Html.Action("ViewAll", "Order")</div>
+        <div id="secondTab" class=" tab-pane fade in  "></div>
+    </div>
+
+</div>
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+@section scripts{
+    
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script>
+        function activatejQueryTable() {
+            $("#orderTable").DataTable();
+        }
+        $(function () {
+            activatejQueryTable();
+        });
+
+    </script>
+}
+
+

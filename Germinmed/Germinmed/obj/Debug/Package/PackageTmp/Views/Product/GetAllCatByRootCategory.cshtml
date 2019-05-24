@@ -1,0 +1,99 @@
+﻿@using Germinmed.Controllers;
+@using Germinmed.Models;
+@model Germinmed.Models.ProductViewModel
+@*@Tree(Model.Category.ToList<Category>())*@
+
+@{
+
+    Layout = null;
+}
+
+<div class="sidebar sidebar-left zee">
+    <h4>Product Categories</h4>
+
+
+
+
+    @*testing*@
+
+
+  
+
+
+    @*@helper Tree(List<Category> items  )
+        {
+            <ul>
+                @foreach (var item in Model.Category)
+                {
+                <li>
+                    @item.Title
+                    @Tree(Model.Category.Where(x=>x.ParentId==item.ParentId).ToList<Category>())
+
+                </li>
+
+                }
+            </ul>
+        }*@
+
+
+
+    @*end testing*@
+
+
+
+    @*<div class="row lee">
+
+        <ul class="nav nav-stacked spot-1" id="accordion1">
+            @{int link = 0;}
+            @foreach (Category item in Model.Category)
+            {
+
+                if (item.Level == 1)
+                {
+                    link++;
+                    <li class="panel">
+                        <a data-toggle="collapse" data-parent="#accordion1" href="#firstLink@(link)">@item.Title <i class="fa fa-angle-right pull-right"></i></a>
+
+                        <ul id="firstLink@(link)" class="collapse">
+                            @foreach (Category item1 in Model.Category)
+                            {
+                                if (item1.ParentId == item.Id)
+                                {
+
+                                    <li class="spot-2">
+                                        <a class="active" onclick="FilterProductList('@Url.Action("GetAllProductsByCatAction", "Product", new { id = item.Id })');">
+                                            <i class="fa fa-circle"></i>&nbsp; @item1.Title
+                                        </a>
+                                    </li>
+
+                                    foreach (Category item2 in Model.Category)
+                                    {
+                                        if (item2.ParentId == item1.Id)
+                                        {
+                                            <li class="spot-2">
+                                                <a class="active" onclick="FilterProductList('@Url.Action("GetAllProductsByCatAction", "Product", new { id = item1.Id })');">
+                                                    <i class="fa fa-circle"></i>&nbsp; @item2.Title
+                                                </a>
+                                            </li>
+
+                                        }
+                                    }
+                                }
+                            }
+
+                        </ul>
+
+                    </li>
+                }
+            }
+
+        </ul>
+
+
+    </div>*@
+    <!-- Widget end -->
+    <!-- Widget end -->
+
+</div>
+
+

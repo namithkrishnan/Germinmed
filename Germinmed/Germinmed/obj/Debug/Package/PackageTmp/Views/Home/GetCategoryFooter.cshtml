@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Germinmed.Models.Category>
+
+@{ 
+    Layout = null;
+}
+    <div class="col-md-9">
+        <div class="products-link">
+            <!--<h5>Our Products</h5>-->
+            <div class="row">
+
+                @foreach (var item in Model)
+                {
+                    if(item.ParentId==0)
+                    { 
+
+                    <div class="col-md-3">
+                        <div class="footer-list">
+                            <h6>@item.Title</h6>
+                            <ul>
+                                @foreach (var item1 in Model)
+                                {
+                                    if (item.Id == item1.ParentId)
+                                    {
+                                        <li><a href="@Url.Action("Index", "Product",new {id=item.Id })"><img src="~/Content/images/arrow-footer.png">@item1.Title</a></li>
+                                    }
+                                }
+
+                         
+                            </ul>
+                        </div>
+                    </div>
+
+                 
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
