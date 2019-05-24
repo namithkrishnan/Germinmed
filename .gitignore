@@ -11,16 +11,16 @@ Germinmed/*.sln.docstates
 Germinmed/*.userprefs
 
 # Build results
-Germinmed/[Dd]ebug/
-Germinmed/[Dd]ebugPublic/
-Germinmed/[Rr]elease/
-Germinmed/[Rr]eleases/
-Germinmed/[Xx]64/
-Germinmed/[Xx]86/
-Germinmed/[Bb]uild/
-Germinmed/bld/
-Germinmed/[Bb]in/
-Germinmed/[Oo]bj/
+Germinmed/Germinmed/[Dd]ebug/
+Germinmed/Germinmed/[Dd]ebugPublic/
+Germinmed/Germinmed/[Rr]elease/
+Germinmed/Germinmed/[Rr]eleases/
+Germinmed/Germinmed/[Xx]64/
+Germinmed/Germinmed/[Xx]86/
+Germinmed/Germinmed/[Bb]uild/
+Germinmed/Germinmed/bld/
+Germinmed/Germinmed/[Bb]in/
+Germinmed/Germinmed/[Oo]bj/
 
 # Visual Studio 2015 cache/options directory
 Germinmed/.vs/
@@ -28,215 +28,215 @@ Germinmed/.vs/
 #wwwroot/
 
 # MSTest test Results
-Germinmed/[Tt]est[Rr]esult*/
-Germinmed/[Bb]uild[Ll]og.*
+Germinmed/Germinmed/[Tt]est[Rr]esult*/
+Germinmed/Germinmed/[Bb]uild[Ll]og.*
 
 # NUNIT
-Germinmed/*.VisualState.xml
-Germinmed/TestResult.xml
+Germinmed/Germinmed/*.VisualState.xml
+Germinmed/Germinmed/TestResult.xml
 
 # Build Results of an ATL Project
-Germinmed/[Dd]ebugPS/
-Germinmed/[Rr]eleasePS/
-Germinmed/dlldata.c
+Germinmed/Germinmed/[Dd]ebugPS/
+Germinmed/Germinmed/[Rr]eleasePS/
+Germinmed/Germinmed/dlldata.c
 
 # DNX
-Germinmed/project.lock.json
-Germinmed/artifacts/
+Germinmed/Germinmed/project.lock.json
+Germinmed/Germinmed/artifacts/
 
-Germinmed/*_i.c
-Germinmed/*_p.c
-Germinmed/*_i.h
-Germinmed/*.ilk
-Germinmed/*.meta
-Germinmed/*.obj
-Germinmed/*.pch
-Germinmed/*.pdb
-Germinmed/*.pgc
-Germinmed/*.pgd
-Germinmed/*.rsp
-Germinmed/*.sbr
-Germinmed/*.tlb
-Germinmed/*.tli
-Germinmed/*.tlh
-Germinmed/*.tmp
-Germinmed/*.tmp_proj
-Germinmed/*.log
-Germinmed/*.vspscc
-Germinmed/*.vssscc
-Germinmed/.builds
-Germinmed/*.pidb
-Germinmed/*.svclog
-Germinmed/*.scc
+Germinmed/Germinmed/*_i.c
+Germinmed/Germinmed/*_p.c
+Germinmed/Germinmed/*_i.h
+Germinmed/Germinmed/*.ilk
+Germinmed/Germinmed/*.meta
+Germinmed/Germinmed/*.obj
+Germinmed/Germinmed/*.pch
+Germinmed/Germinmed/*.pdb
+Germinmed/Germinmed/*.pgc
+Germinmed/Germinmed/*.pgd
+Germinmed/Germinmed/*.rsp
+Germinmed/Germinmed/*.sbr
+Germinmed/Germinmed/*.tlb
+Germinmed/Germinmed/*.tli
+Germinmed/Germinmed/*.tlh
+Germinmed/Germinmed/*.tmp
+Germinmed/Germinmed/*.tmp_proj
+Germinmed/Germinmed/*.log
+Germinmed/Germinmed/*.vspscc
+Germinmed/Germinmed/*.vssscc
+Germinmed/Germinmed/.builds
+Germinmed/Germinmed/*.pidb
+Germinmed/Germinmed/*.svclog
+Germinmed/Germinmed/*.scc
 
 # Chutzpah Test files
-Germinmed/_Chutzpah*
+Germinmed/Germinmed/_Chutzpah*
 
 # Visual C++ cache files
-Germinmed/ipch/
-Germinmed/*.aps
-Germinmed/*.ncb
-Germinmed/*.opendb
-Germinmed/*.opensdf
-Germinmed/*.sdf
-Germinmed/*.cachefile
-Germinmed/*.VC.db
+Germinmed/Germinmed/ipch/
+Germinmed/Germinmed/*.aps
+Germinmed/Germinmed/*.ncb
+Germinmed/Germinmed/*.opendb
+Germinmed/Germinmed/*.opensdf
+Germinmed/Germinmed/*.sdf
+Germinmed/Germinmed/*.cachefile
+Germinmed/Germinmed/*.VC.db
 
 # Visual Studio profiler
-Germinmed/*.psess
-Germinmed/*.vsp
-Germinmed/*.vspx
-Germinmed/*.sap
+Germinmed/Germinmed/*.psess
+Germinmed/Germinmed/*.vsp
+Germinmed/Germinmed/*.vspx
+Germinmed/Germinmed/*.sap
 
 # TFS 2012 Local Workspace
-Germinmed/$tf/
+Germinmed/Germinmed/$tf/
 
 # Guidance Automation Toolkit
-Germinmed/*.gpState
+Germinmed/Germinmed/*.gpState
 
 # ReSharper is a .NET coding add-in
-Germinmed/_ReSharper*/
-Germinmed/*.[Rr]e[Ss]harper
-Germinmed/*.DotSettings.user
+Germinmed/Germinmed/_ReSharper*/
+Germinmed/Germinmed/*.[Rr]e[Ss]harper
+Germinmed/Germinmed/*.DotSettings.user
 
 # JustCode is a .NET coding add-in
-Germinmed/.JustCode
+Germinmed/Germinmed/.JustCode
 
 # TeamCity is a build add-in
-Germinmed/_TeamCity*
+Germinmed/Germinmed/_TeamCity*
 
 # DotCover is a Code Coverage Tool
-Germinmed/*.dotCover
+Germinmed/Germinmed/*.dotCover
 
 # NCrunch
-Germinmed/_NCrunch_*
-Germinmed/.*crunch*.local.xml
-Germinmed/nCrunchTemp_*
+Germinmed/Germinmed/_NCrunch_*
+Germinmed/Germinmed/.*crunch*.local.xml
+Germinmed/Germinmed/nCrunchTemp_*
 
 # MightyMoose
-Germinmed/*.mm.*
-Germinmed/AutoTest.Net/
+Germinmed/Germinmed/*.mm.*
+Germinmed/Germinmed/AutoTest.Net/
 
 # Web workbench (sass)
-Germinmed/.sass-cache/
+Germinmed/Germinmed/.sass-cache/
 
 # Installshield output folder
-Germinmed/[Ee]xpress/
+Germinmed/Germinmed/[Ee]xpress/
 
 # DocProject is a documentation generator add-in
-Germinmed/DocProject/buildhelp/
-Germinmed/DocProject/Help/*.HxT
-Germinmed/DocProject/Help/*.HxC
-Germinmed/DocProject/Help/*.hhc
-Germinmed/DocProject/Help/*.hhk
-Germinmed/DocProject/Help/*.hhp
-Germinmed/DocProject/Help/Html2
-Germinmed/DocProject/Help/html
+Germinmed/Germinmed/DocProject/buildhelp/
+Germinmed/Germinmed/DocProject/Help/*.HxT
+Germinmed/Germinmed/DocProject/Help/*.HxC
+Germinmed/Germinmed/DocProject/Help/*.hhc
+Germinmed/Germinmed/DocProject/Help/*.hhk
+Germinmed/Germinmed/DocProject/Help/*.hhp
+Germinmed/Germinmed/DocProject/Help/Html2
+Germinmed/Germinmed/DocProject/Help/html
 
 # Click-Once directory
-Germinmed/publish/
+Germinmed/Germinmed/publish/
 
 # Publish Web Output
-Germinmed/*.[Pp]ublish.xml
-Germinmed/*.azurePubxml
+Germinmed/Germinmed/*.[Pp]ublish.xml
+Germinmed/Germinmed/*.azurePubxml
 
 # TODO: Un-comment the next line if you do not want to checkin
 # your web deploy settings because they may include unencrypted
 # passwords
 #*.pubxml
-Germinmed/*.publishproj
+Germinmed/Germinmed/*.publishproj
 
 # NuGet Packages
-Germinmed/*.nupkg
+Germinmed/Germinmed/*.nupkg
 # The packages folder can be ignored because of Package Restore
-Germinmed/**/packages/*
+Germinmed/Germinmed/**/packages/*
 # except build/, which is used as an MSBuild target.
-Germinmed/!**/packages/build/
+Germinmed/Germinmed/!**/packages/build/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
 # NuGet v3's project.json files produces more ignoreable files
-Germinmed/*.nuget.props
-Germinmed/*.nuget.targets
+Germinmed/Germinmed/*.nuget.props
+Germinmed/Germinmed/*.nuget.targets
 
 # Microsoft Azure Build Output
-Germinmed/csx/
-Germinmed/*.build.csdef
+Germinmed/Germinmed/csx/
+Germinmed/Germinmed/*.build.csdef
 
 # Microsoft Azure Emulator
-Germinmed/ecf/
-Germinmed/rcf/
+Germinmed/Germinmed/ecf/
+Germinmed/Germinmed/rcf/
 
 # Windows Store app package directory
-Germinmed/AppPackages/
-Germinmed/BundleArtifacts/
+Germinmed/Germinmed/AppPackages/
+Germinmed/Germinmed/BundleArtifacts/
 
 # Visual Studio cache files
 # files ending in .cache can be ignored
-Germinmed/*.[Cc]ache
+Germinmed/Germinmed/*.[Cc]ache
 # but keep track of directories ending in .cache
-Germinmed/!*.[Cc]ache/
+Germinmed/Germinmed/!*.[Cc]ache/
 
 # Others
-Germinmed/ClientBin/
-Germinmed/[Ss]tyle[Cc]op.*
-Germinmed/~$*
-Germinmed/*~
-Germinmed/*.dbmdl
-Germinmed/*.dbproj.schemaview
-Germinmed/*.pfx
-Germinmed/*.publishsettings
-Germinmed/node_modules/
-Germinmed/orleans.codegen.cs
+Germinmed/Germinmed/ClientBin/
+Germinmed/Germinmed/[Ss]tyle[Cc]op.*
+Germinmed/Germinmed/~$*
+Germinmed/Germinmed/*~
+Germinmed/Germinmed/*.dbmdl
+Germinmed/Germinmed/*.dbproj.schemaview
+Germinmed/Germinmed/*.pfx
+Germinmed/Germinmed/*.publishsettings
+Germinmed/Germinmed/node_modules/
+Germinmed/Germinmed/orleans.codegen.cs
 
 # RIA/Silverlight projects
-Germinmed/Generated_Code/
+Germinmed/Germinmed/Generated_Code/
 
 # Backup & report files from converting an old project file
 # to a newer Visual Studio version. Backup files are not needed,
 # because we have git ;-)
-Germinmed/_UpgradeReport_Files/
-Germinmed/Backup*/
-Germinmed/UpgradeLog*.XML
-Germinmed/UpgradeLog*.htm
+Germinmed/Germinmed/_UpgradeReport_Files/
+Germinmed/Germinmed/Backup*/
+Germinmed/Germinmed/UpgradeLog*.XML
+Germinmed/Germinmed/UpgradeLog*.htm
 
 # SQL Server files
-Germinmed/*.mdf
-Germinmed/*.ldf
+Germinmed/Germinmed/*.mdf
+Germinmed/Germinmed/*.ldf
 
 # Business Intelligence projects
-Germinmed/*.rdl.data
-Germinmed/*.bim.layout
-Germinmed/*.bim_*.settings
+Germinmed/Germinmed/*.rdl.data
+Germinmed/Germinmed/*.bim.layout
+Germinmed/Germinmed/*.bim_*.settings
 
 # Microsoft Fakes
-Germinmed/FakesAssemblies/
+Germinmed/Germinmed/FakesAssemblies/
 
 # GhostDoc plugin setting file
-Germinmed/*.GhostDoc.xml
+Germinmed/Germinmed/*.GhostDoc.xml
 
 # Node.js Tools for Visual Studio
-Germinmed/.ntvs_analysis.dat
+Germinmed/Germinmed/.ntvs_analysis.dat
 
 # Visual Studio 6 build log
-Germinmed/*.plg
+Germinmed/Germinmed/*.plg
 
 # Visual Studio 6 workspace options file
-Germinmed/*.opt
+Germinmed/Germinmed/*.opt
 
 # Visual Studio LightSwitch build output
-Germinmed/**/*.HTMLClient/GeneratedArtifacts
-Germinmed/**/*.DesktopClient/GeneratedArtifacts
-Germinmed/**/*.DesktopClient/ModelManifest.xml
-Germinmed/**/*.Server/GeneratedArtifacts
-Germinmed/**/*.Server/ModelManifest.xml
-Germinmed/_Pvt_Extensions
+Germinmed/Germinmed/**/*.HTMLClient/GeneratedArtifacts
+Germinmed/Germinmed/**/*.DesktopClient/GeneratedArtifacts
+Germinmed/Germinmed/**/*.DesktopClient/ModelManifest.xml
+Germinmed/Germinmed/**/*.Server/GeneratedArtifacts
+Germinmed/Germinmed/**/*.Server/ModelManifest.xml
+Germinmed/Germinmed/_Pvt_Extensions
 
 # LightSwitch generated files
-Germinmed/GeneratedArtifacts/
-Germinmed/ModelManifest.xml
+Germinmed/Germinmed/GeneratedArtifacts/
+Germinmed/Germinmed/ModelManifest.xml
 
 # Paket dependency manager
-Germinmed/.paket/paket.exe
+Germinmed/Germinmed/.paket/paket.exe
 
 # FAKE - F# Make
-Germinmed/.fake/
+Germinmed/Germinmed/.fake/
