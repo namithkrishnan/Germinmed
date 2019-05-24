@@ -501,6 +501,5 @@ D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\bin\Antlr3.Runtime.pdb
 D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\bin\System.Diagnostics.DiagnosticSource.xml
 D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\obj\Debug\Germinmed.csprojResolveAssemblyReference.cache
 D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\obj\Debug\Germinmed.dll
 D:\Namith\Personal\Projects\Git\Germinmed\Germinmed\obj\Debug\Germinmed.pdb
