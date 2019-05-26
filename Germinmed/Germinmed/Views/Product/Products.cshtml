@@ -70,7 +70,10 @@
 
                                 @Html.Action("ProductAll", "Product")
 
-
+                                @if (ViewBag.CategoryId != null && ViewBag.CategoryId > 0)
+                                {
+                                    @Html.Action("CategorySub", "Product", new { Id = ViewBag.CategoryId })
+                                }
                             </div>
 
                         </div>

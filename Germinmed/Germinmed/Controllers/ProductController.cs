@@ -31,7 +31,7 @@ namespace Germinmed.Controllers
             vm.Brands = GetAllBrands();
 
             //   GetAllCatByRootCategory(Id);
-
+            ViewBag.CategoryId = Id;
 
             return View(vm);
         }
@@ -204,7 +204,8 @@ namespace Germinmed.Controllers
                     foreach (var item in catList)
                     {
 
-                        prodListCopy.AddRange(prodList.FindAll(x => x.CategoryId == item.Id));
+                        //prodListCopy.AddRange(prodList.FindAll(x => x.CategoryId == item.Id));
+                        prodListCopy.AddRange(prodList.FindAll(x => x.CategoryId == id));
                     }
                     prodListCopy.AddRange(prodList.FindAll(x => x.CategoryId == id));
 
@@ -502,13 +503,10 @@ namespace Germinmed.Controllers
                     catList = db.Category.SqlQuery(Category.sqlQuery1).Where(x => x.ParentId == id).ToList<Category>();
 
 
-                    foreach (var item in catList)
-                    {
-
-
-                        catListcopy.AddRange(db.Category.SqlQuery(Category.sqlQuery1).Where(x => x.ParentId == item.Id).ToList<Category>());
-
-                    }
+                    //foreach (var item in catList)
+                    //{
+                    //    catListcopy.AddRange(db.Category.SqlQuery(Category.sqlQuery1).Where(x => x.ParentId == item.Id).ToList<Category>());
+                    //}
 
                     catList.AddRange(catListcopy);
                     return catList;
@@ -525,13 +523,14 @@ namespace Germinmed.Controllers
         public ActionResult ProductSub(int Id)
         {
             IEnumerable<Category> cat = GetAllCatByParent(Id);
-
-            if (cat.Count() != 0)
-                return View(cat);
-            else
-            {
-                return RedirectToAction("Products", "Product",new {Id=Id });
-            }
+            ViewBag.CategoryId = Id;
+            return View(cat);
+            //if (cat.Count() != 0)
+            //    return View(cat);
+            //else
+            //{
+            //    return RedirectToAction("Products", "Product",new {Id=Id });
+            //}
 
         }
 
@@ -539,9 +538,9 @@ namespace Germinmed.Controllers
         public ActionResult CategorySub(int Id)
         {
           IEnumerable<Category> cat = GetAllCatByParent(Id);
-
-           // if (cat.Count() != 0)
-                return PartialView(cat);
+            ViewBag.CategoryId = Id;
+            // if (cat.Count() != 0)
+            return PartialView(cat);
 
           //  else
            // {

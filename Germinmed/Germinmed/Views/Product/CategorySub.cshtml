@@ -22,5 +22,9 @@
         </div>
         i++;
     }
+    if (ViewBag.CategoryId != null && ViewBag.CategoryId > 0)
+    {
+        @Html.Action("ProductAll", "Product", new { Id = ViewBag.CategoryId })
+    }
 }
 
