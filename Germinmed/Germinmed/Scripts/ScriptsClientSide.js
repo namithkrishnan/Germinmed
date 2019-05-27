@@ -16,18 +16,29 @@ $(function () {
 
 function FilterProductListByBrand(id) {
     debugger;
-    $(".product-right .row").html("");
+    //$(".product-right .row").hide();
+    //$(".products .tab-content").find('div.active').hide();
+    //$(".tab-content").find('div.active').html("");
+    $($(".tab-content").find('div.active')[0]).find(".row").html("");
     var categoryId = $('ul.list-inline').find('li.active').attr("id");
-    var data = { brandId: id, categoryId: categoryId };
+    //var data = { brandId: id, categoryId: categoryId };
+    //CategorySub
+    var url = "";
+    var data = {};
+    if (id > 0) {
+        url = "/Product/GetAllProductsByBrand";
+        data = { brandId: id, categoryId: categoryId };
+    }
+    else {
+        url = "/Product/CategorySub";
+        data = { Id: categoryId };
+    }
     $.ajax({
         type: 'GET',
-        url: "/Product/GetAllProductsByBrand",
+        url: url,
         data : data,
         success: function (response) {
-           
-            $("#divGetAllProductsByCatAction").html(response);
-            
-        
+            $($(".tab-content").find('div.active')[0]).find(".row").html(response);
         }
     });
 

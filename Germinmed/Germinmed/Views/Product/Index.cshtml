@@ -121,7 +121,7 @@
                                             <div class="row">
 
 
-                                                @Html.Action("CategorySub", "Product", new { id = item.Id })
+                                                 @Html.Action("CategorySub", "Product", new { id = item.Id })
                                                 
 
                                             </div>
@@ -186,6 +186,9 @@
         })
 
         function activaTab(tab) {
+            debugger;
+            $("#BrandId").val(-1);
+            setTimeout(function () { FilterProductListByBrand(-1) }, 10);
             $('.list-inline a[href="#' + tab + '"]').tab('show');
         };
 

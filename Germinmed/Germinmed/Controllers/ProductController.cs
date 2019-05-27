@@ -36,7 +36,7 @@ namespace Germinmed.Controllers
             return View(vm);
         }
 
-      
+
 
         public ActionResult Offer(int? Id)
         {
@@ -68,12 +68,12 @@ namespace Germinmed.Controllers
 
         public ActionResult GetAllProductsByBrand(int? brandId, int categoryId)
         {
-            if (brandId != null && brandId != 0)
-            {
-                return PartialView(GetAllProductsByBrands(brandId,categoryId));
-            }
-            else
-                return PartialView(GetAllProducts());
+            //if (brandId != null && brandId != 0)
+            //{
+            return PartialView(GetAllProductsByBrands(brandId, categoryId));
+            //}
+            //else
+            //    return PartialView(GetAllProducts());
 
 
 
@@ -181,7 +181,7 @@ namespace Germinmed.Controllers
 
         }
 
-     
+
 
 
         IEnumerable<ProductViewModel> GetAllProductsByCat(int? id)
@@ -326,7 +326,8 @@ namespace Germinmed.Controllers
                 var productlist = (from prod1 in db.Product
                                    join img in db.ProductImage on prod1.Id equals img.ProductId
                                    join brnd in db.Brand on prod1.BrandId equals brnd.Id
-                                   where prod1.BrandId == brandId &&
+                                   where
+                                   (brandId == 0 || prod1.BrandId == brandId) &&
                                    (categoryId == 0 || prod1.CategoryId == categoryId)
                                    orderby img.DisplayOrder ascending
                                    select new
@@ -452,7 +453,7 @@ namespace Germinmed.Controllers
             {
 
                 brnd.BrandList = db.Brand.ToList<Brands>();
-                brnd.BrandList.Add(new Brands { Id = 0, Title = "Select Brand" });
+                brnd.BrandList.Add(new Brands { Id = -1, Title = "Select Brand" });
                 return brnd.BrandList;
             }
         }
@@ -540,18 +541,19 @@ namespace Germinmed.Controllers
 
         public ActionResult CategorySub(int Id)
         {
-          IEnumerable<Category> cat = GetAllCatByParent(Id);
+            IEnumerable<Category> cat = GetAllCatByParent(Id);
             ViewBag.CategoryId = Id;
             // if (cat.Count() != 0)
             return PartialView(cat);
 
-          //  else
-           // {
-                // return RedirectToAction("Products", "Product", new { Id = Id });
-              //  return PartialView("ProductAll",  GetAllProductsByCat(Id));
-           // }
-             
+            //  else
+            // {
+            // return RedirectToAction("Products", "Product", new { Id = Id });
+            //  return PartialView("ProductAll",  GetAllProductsByCat(Id));
+            // }
+
         }
+
         public ActionResult ProductAll(int? Id)
         {
 
@@ -589,13 +591,13 @@ namespace Germinmed.Controllers
 
         }
 
-        public PartialViewResult GetCategoryNameByID(int id )
+        public PartialViewResult GetCategoryNameByID(int id)
         {
             Category cat;
-            using (GerminmedContext db=new GerminmedContext())
+            using (GerminmedContext db = new GerminmedContext())
             {
-                 cat = db.Category.SqlQuery(Category.sqlQuery1).Where(x => x.Id == id).FirstOrDefault<Category>();
-                
+                cat = db.Category.SqlQuery(Category.sqlQuery1).Where(x => x.Id == id).FirstOrDefault<Category>();
+
             }
 
             return PartialView(cat);
@@ -630,14 +632,14 @@ namespace Germinmed.Controllers
 
 
 
-    
 
-       
+
+
 
 
 
 
     }
 
-    
+
 }
