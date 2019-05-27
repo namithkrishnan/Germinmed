@@ -304,6 +304,8 @@
     <Content Include="Content\images\excellence.jpg" />
     <Content Include="Content\images\favi.png" />
     <Content Include="Content\images\favicon-16x16.png" />
+    <Content Include="Content\images\file-1.png" />
+    <Content Include="Content\images\file.png" />
     <Content Include="Content\images\global-prsence-banner.jpg" />
     <Content Include="Content\images\header-top.png" />
     <Content Include="Content\images\hospital-furniture.jpg" />
@@ -444,6 +446,7 @@
     <Content Include="Content\fonts\OneNote Table Of Contents.onetoc2" />
     <Content Include="Content\fonts\Simple-Line-Icons.woff" />
     <Content Include="Content\images\OneNote Table Of Contents.onetoc2" />
+    <None Include="Properties\PublishProfiles\Aneesh.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

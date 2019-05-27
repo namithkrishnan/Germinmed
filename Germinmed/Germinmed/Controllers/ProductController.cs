@@ -66,11 +66,11 @@ namespace Germinmed.Controllers
             return PartialView(vm);
         }
 
-        public ActionResult GetAllProductsByBrand(int? id)
+        public ActionResult GetAllProductsByBrand(int? brandId, int categoryId)
         {
-            if (id != null && id != 0)
+            if (brandId != null && brandId != 0)
             {
-                return PartialView(GetAllProductsByBrands(id));
+                return PartialView(GetAllProductsByBrands(brandId,categoryId));
             }
             else
                 return PartialView(GetAllProducts());
@@ -229,7 +229,8 @@ namespace Germinmed.Controllers
                                  prod1.OfferPercentage,
                                  prod1.ShowInHomePage,
                                  img.ImageUrl,
-                                 brnd.Title
+                                 brnd.Title,
+                                 prod1.CategoryId
                              }).ToList();
 
 
@@ -248,6 +249,7 @@ namespace Germinmed.Controllers
                         objHome.ShowInHomePage = item.ShowInHomePage;
                         objHome.ImageUrl = item.ImageUrl;
                         objHome.BrandTitle = item.Title;
+                        objHome.CategoryId = item.CategoryId;
                         ProductVMlist.Add(objHome);
                     }
                     return ProductVMlist;
@@ -316,7 +318,7 @@ namespace Germinmed.Controllers
 
         }
 
-        IEnumerable<ProductViewModel> GetAllProductsByBrands(int? id)
+        IEnumerable<ProductViewModel> GetAllProductsByBrands(int? brandId, int categoryId)
         {
             List<ProductViewModel> ProductVMlist = new List<ProductViewModel>();
             using (GerminmedContext db = new GerminmedContext())
@@ -324,7 +326,8 @@ namespace Germinmed.Controllers
                 var productlist = (from prod1 in db.Product
                                    join img in db.ProductImage on prod1.Id equals img.ProductId
                                    join brnd in db.Brand on prod1.BrandId equals brnd.Id
-                                   where prod1.BrandId == id
+                                   where prod1.BrandId == brandId &&
+                                   (categoryId == 0 || prod1.CategoryId == categoryId)
                                    orderby img.DisplayOrder ascending
                                    select new
                                    {

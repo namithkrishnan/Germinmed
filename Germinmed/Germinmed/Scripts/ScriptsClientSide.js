@@ -15,9 +15,14 @@ $(function () {
 
 
 function FilterProductListByBrand(id) {
+    debugger;
+    $(".product-right .row").html("");
+    var categoryId = $('ul.list-inline').find('li.active').attr("id");
+    var data = { brandId: id, categoryId: categoryId };
     $.ajax({
         type: 'GET',
-        url: "/Product/GetAllProductsByBrand/"+id,
+        url: "/Product/GetAllProductsByBrand",
+        data : data,
         success: function (response) {
            
             $("#divGetAllProductsByCatAction").html(response);
