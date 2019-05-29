@@ -333,6 +333,7 @@
     <Content Include="Content\images\imunoglukan.jpg" />
     <Content Include="Content\images\laser-beauty-equipment.jpg" />
     <Content Include="Content\images\laser-eqp.jpg" />
+    <Content Include="Content\images\left-arrow.png" />
     <Content Include="Content\images\left-shape.jpg" />
     <Content Include="Content\images\left-shape.png" />
     <Content Include="Content\images\lock.png" />
@@ -361,6 +362,7 @@
     <Content Include="Content\images\quotation.jpg" />
     <Content Include="Content\images\radiology.jpg" />
     <Content Include="Content\images\refrigerator-freezer.jpg" />
+    <Content Include="Content\images\right-arrow.png" />
     <Content Include="Content\images\right-shape.jpg" />
     <Content Include="Content\images\right-shape.png" />
     <Content Include="Content\images\search-icon.png" />
