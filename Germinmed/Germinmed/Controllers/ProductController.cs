@@ -318,17 +318,43 @@ namespace Germinmed.Controllers
 
         }
 
+        //IEnumerable<Category> GetChild(int id)
+        //{
+        //    GerminmedContext db = new GerminmedContext();
+        //    return db.Category.Where(x => x.ParentId == id )//|| x.Id == id)
+        //                .Union(db.Category.Where(x => x.ParentId == id)
+        //                            .SelectMany(y => GetChild(y.Id))
+        //    );
+        //}
+
+        List<int> allSubCats = new List<int>();
+        void GetChilds(int id)
+        {
+            using (GerminmedContext db = new GerminmedContext())
+            {
+                List<int> cats = db.Category.Where(x => x.ParentId == id).Select(y => y.Id).ToList();
+                allSubCats.AddRange(cats);
+                foreach (int item in cats)
+                {
+                    GetChilds(item);
+                }
+            }
+        }
+
         IEnumerable<ProductViewModel> GetAllProductsByBrands(int? brandId, int categoryId)
         {
             List<ProductViewModel> ProductVMlist = new List<ProductViewModel>();
+            allSubCats = new List<int>();
             using (GerminmedContext db = new GerminmedContext())
             {
+                if (brandId > 0)
+                {
+                    GetChilds(categoryId);
+                }
+
                 var productlist = (from prod1 in db.Product
                                    join img in db.ProductImage on prod1.Id equals img.ProductId
                                    join brnd in db.Brand on prod1.BrandId equals brnd.Id
-                                   where
-                                   (brandId == 0 || prod1.BrandId == brandId) &&
-                                   (categoryId == 0 || prod1.CategoryId == categoryId)
                                    orderby img.DisplayOrder ascending
                                    select new
                                    {
@@ -340,8 +366,18 @@ namespace Germinmed.Controllers
                                        prod1.OfferPercentage,
                                        prod1.ShowInHomePage,
                                        img.ImageUrl,
-                                       brnd.Title
+                                       brnd.Title,
+                                       prod1.BrandId,
+                                       prod1.CategoryId
                                    }).ToList();
+                if (brandId > 0)
+                {
+                    productlist = productlist.Where(p => allSubCats.Contains(p.CategoryId) && p.BrandId == brandId).ToList();
+                }
+                else if (categoryId > 0)
+                {
+                    productlist = productlist.Where(p => p.CategoryId == categoryId).ToList();
+                }
 
                 foreach (var item in productlist)
                 {
