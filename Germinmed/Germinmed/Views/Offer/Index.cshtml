@@ -53,7 +53,7 @@
                                 {
                                     if (Url.RequestContext.RouteData.Values["id"] != null)
                                     {
-                                        <li role="presentation" class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "")">
+                                        <li id="@item.Id" role="presentation" class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "")">
                                             <a href="#@(item.Title.ToLower())" aria-controls="@(item.Title.ToLower())" role="tab" data-toggle="tab" onclick="activaTab('@(item.Title.ToLower())')" id="MyTabs">@item.Title</a>
                                         </li>
                                     }
@@ -68,7 +68,7 @@
                             }
                             <li class="pull-right filter">
                                 Filter by Brand
-                                @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.Brands, "Id", "Title", "Select Brand"), new { @class = "fil", onchange = "FilterProductListByBrand(this.value);" })
+                                @Html.DropDownListFor(model => model.BrandId, new SelectList(Model.Brands, "Id", "Title", "Select Brand"), new { @class = "fil", onchange = "FilterOfferListByBrand(this.value);" })
 
 
                             </li>
@@ -113,8 +113,8 @@
                                             <div class="row">
 
 
-                                                @Html.Action("CategorySubOffer", "Offer", new { Id = item.Id })
-
+                                                @*@Html.Action("CategorySubOffer", "Offer", new { Id = item.Id })*@
+                                                @Html.Action("ProductAllOffer", "Offer", new { Id = item.Id })
 
 
 
@@ -178,6 +178,8 @@
         })
 
         function activaTab(tab) {
+            $("#BrandId").val(-1);
+            setTimeout(function () { FilterOfferListByBrand(-1) }, 10);
             $('.list-inline a[href="#' + tab + '"]').tab('show');
         };
 

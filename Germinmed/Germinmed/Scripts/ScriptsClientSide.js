@@ -1,14 +1,14 @@
 ﻿
 $(function () {
     $("#loaderbody").addClass('hide');
- 
+
     $(document).bind('ajaxStart', function () {
         $("#loaderbody").removeClass('hide');
     }).bind('ajaxStop', function () {
         $("#loaderbody").addClass('hide');
-        });
+    });
 
-  
+
 });
 
 
@@ -36,7 +36,32 @@ function FilterProductListByBrand(id) {
     $.ajax({
         type: 'GET',
         url: url,
-        data : data,
+        data: data,
+        success: function (response) {
+            $($(".tab-content").find('div.active')[0]).find(".row").html(response);
+        }
+    });
+
+}
+
+function FilterOfferListByBrand(id) {
+    debugger;
+    $($(".tab-content").find('div.active')[0]).find(".row").html("");
+    var categoryId = $('ul.list-inline').find('li.active').attr("id");
+    var url = "";
+    var data = {};
+    //if (id > 0) {
+    url = "/Offer/ProductAllOffer";
+    data = { Id: categoryId, BrandId: id };
+    //}
+    //else {
+    //    url = "/Product/CategorySub";
+    //    data = { Id: categoryId };
+    //}
+    $.ajax({
+        type: 'GET',
+        url: url,
+        data: data,
         success: function (response) {
             $($(".tab-content").find('div.active')[0]).find(".row").html(response);
         }
@@ -48,10 +73,10 @@ function FilterProductList(url) {
         type: 'GET',
         url: url,
         success: function (response) {
-           
+
             $("#divGetAllProductsByCatAction").html(response);
-            
-        
+
+
         }
     });
 
@@ -91,7 +116,7 @@ function FilterCategoryList(url) {
         success: function (response) {
 
             $("#divGetAllCatByRootCategory").html(response);
-          
+
 
         }
     });

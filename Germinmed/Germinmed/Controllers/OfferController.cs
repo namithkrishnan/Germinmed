@@ -39,15 +39,15 @@ namespace Germinmed.Controllers
         {
             IEnumerable<Category> cat = GetAllCatByParent(Id);
 
-           // if (cat.Count() != 0)
-                return View(cat);
+            // if (cat.Count() != 0)
+            return View(cat);
             //else
             //{
             //    return RedirectToAction("ProductsOffer", "Offer", new { Id = Id });
             //}
 
         }
-      
+
 
         public ActionResult ProductSubOffer(int Id)
         {
@@ -62,26 +62,29 @@ namespace Germinmed.Controllers
 
         }
 
-        public ActionResult ProductAllOffer(int? Id)
+        public ActionResult ProductAllOffer(int? Id, int BrandId = 0)
         {
-
-            if (Id != null && Id != 0)
-            {
-                return PartialView(GetAllProductsByCatOffer(Id));
-            }
-            else
-                return PartialView(GetAllProductsOffer());
+            int categoryId = Id != null ? Id.Value : 0;
+            //int brandId = BrandId != 0 ? BrandId.Value : 0;
+            return PartialView(GetAllProductsOffer(categoryId, BrandId));
+            //if (Id != null && Id != 0)
+            //{
+            //    return PartialView(GetAllProductsByCatOffer(Id));
+            //}
+            //else
+            //    return PartialView(GetAllProductsOffer());
 
         }
 
         public ActionResult ProductsOffer(int? Id)
         {
-            if (Id != null && Id != 0)
-            {
-                return PartialView(GetAllProductsByCatOffer(Id));
-            }
-            else
-                return PartialView(GetAllProductsOffer());
+            return PartialView(GetAllProductsByCatOffer(Id));
+            //if (Id != null && Id != 0)
+            //{
+            //    return PartialView(GetAllProductsByCatOffer(Id));
+            //}
+            //else
+            //    return PartialView(GetAllProductsOffer());
         }
 
         IEnumerable<Category> GetAllCatByParent(int? id)
@@ -121,7 +124,7 @@ namespace Germinmed.Controllers
             {
 
                 brnd.BrandList = db.Brand.ToList<Brands>();
-                brnd.BrandList.Add(new Brands { Id = 0, Title = "Select Brand" });
+                brnd.BrandList.Add(new Brands { Id = -1, Title = "Select Brand" });
                 return brnd.BrandList;
             }
         }
@@ -213,7 +216,7 @@ namespace Germinmed.Controllers
             }
 
         }
-      
+
         IEnumerable<ProductViewModel> GetAllProductsOffer()
         {
             List<ProductViewModel> ProductVMlist = new List<ProductViewModel>();
@@ -236,6 +239,70 @@ namespace Germinmed.Controllers
                                        img.ImageUrl,
                                        brnd.Title
                                    }).ToList();
+
+                foreach (var item in productlist)
+                {
+                    ProductViewModel objHome = new ProductViewModel();// ViewModel
+                    objHome.Id = item.Id;
+                    objHome.ProductName = item.ProductName;
+                    objHome.Description = item.Description;
+                    objHome.IsFeatured = item.IsFeatured;
+                    objHome.IsOffer = item.IsOffer;
+                    objHome.OfferPercentage = item.OfferPercentage;
+                    objHome.ShowInHomePage = item.ShowInHomePage;
+                    objHome.ImageUrl = item.ImageUrl;
+                    objHome.BrandTitle = item.Title;
+                    ProductVMlist.Add(objHome);
+                }
+                return ProductVMlist;
+            }
+
+        }
+
+        List<int> allSubCats = new List<int>();
+        void GetChilds(int id)
+        {
+            using (GerminmedContext db = new GerminmedContext())
+            {
+                List<int> cats = db.Category.Where(x => x.ParentId == id).Select(y => y.Id).ToList();
+                allSubCats.AddRange(cats);
+                foreach (int item in cats)
+                {
+                    GetChilds(item);
+                }
+            }
+        }
+
+        IEnumerable<ProductViewModel> GetAllProductsOffer(int CategoryId, int Brandid)
+        {
+            List<ProductViewModel> ProductVMlist = new List<ProductViewModel>();
+            allSubCats = new List<int>();
+            GetChilds(CategoryId);
+            using (GerminmedContext db = new GerminmedContext())
+            {
+                var productlist = (from prod1 in db.Product
+                                   join img in db.ProductImage on prod1.Id equals img.ProductId
+                                   join brnd in db.Brand on prod1.BrandId equals brnd.Id
+                                   where prod1.IsOffer == true &&
+                                   allSubCats.Contains(prod1.CategoryId)
+                                   orderby img.DisplayOrder ascending
+                                   select new
+                                   {
+                                       prod1.Id,
+                                       prod1.ProductName,
+                                       prod1.Description,
+                                       prod1.IsFeatured,
+                                       prod1.IsOffer,
+                                       prod1.OfferPercentage,
+                                       prod1.ShowInHomePage,
+                                       img.ImageUrl,
+                                       brnd.Title,
+                                       brandId = prod1.BrandId
+                                   }).ToList();
+                if (Brandid > 0)
+                {
+                    productlist = productlist.Where(p => p.brandId == Brandid).ToList();
+                }
 
                 foreach (var item in productlist)
                 {
