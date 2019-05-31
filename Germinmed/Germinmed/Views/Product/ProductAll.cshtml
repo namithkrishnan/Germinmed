@@ -11,7 +11,8 @@
     {
 
         <div class="col-md-2 wow fadeInUp" data-wow-delay="0.@(i)s">
-            <a href="@Url.Action("Details","Product",new { Id=item.Id})">
+            @*<a href="@Url.Action("Details","Product",new { Id=item.Id})">*@
+            <a href='@Url.Content("~/Product/Details?id=@item.Id")'>
                 <div class="product-box">
                     <div class="pro-image">
                         <img src=" @Url.Content(item.ImageUrl) " class="img-responsive" alt="">
@@ -21,7 +22,6 @@
                                 <span>@(item.OfferPercentage)% OFF</span>
                             }
                         }
-
                     </div>
                     <h3 categoryId="@item.CategoryId">@item.ProductName</h3>
                 </div>
