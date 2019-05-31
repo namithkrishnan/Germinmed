@@ -58,16 +58,8 @@ function FilterOfferListByBrand(id) {
     debugger;
     $($(".tab-content").find('div.active')[0]).find(".row").html("");
     var categoryId = $('ul.list-inline').find('li.active').attr("id");
-    var url = "";
-    var data = {};
-    //if (id > 0) {
-    url = "/Offer/ProductAllOffer";
-    data = { Id: categoryId, BrandId: id };
-    //}
-    //else {
-    //    url = "/Product/CategorySub";
-    //    data = { Id: categoryId };
-    //}
+    var url = rootURL + "/Offer/ProductAllOffer";
+    var data = { Id: categoryId, BrandId: id };
     $.ajax({
         type: 'GET',
         url: url,
