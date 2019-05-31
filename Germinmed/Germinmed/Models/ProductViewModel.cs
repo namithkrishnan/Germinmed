@@ -7,7 +7,7 @@ namespace Germinmed.Models
 {
     public class ProductViewModel
     {
-        public int BrandId { get; set; }
+        public int? BrandId { get; set; }
         public int CategoryId { get; set; }
         public IEnumerable<Category> Category { get; set; }
         public IEnumerable<Category> SubCategory { get; set; }

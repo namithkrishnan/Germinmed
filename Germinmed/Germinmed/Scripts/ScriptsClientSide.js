@@ -11,8 +11,18 @@ $(function () {
 
 });
 
+function getRootURL() {
+    var n = null, i, t;
+    return location.hostname == "localhost" ? n = location.protocol + "//" + location.hostname + (location.hostname == "localhost" ? ":" + location.port + "/" : "/" + location.pathname.split("/")[1]) : (i = location.pathname.split("/"), t = cleanArray(i), n = location.protocol + "//" + location.host + "/" + t[0] + "/"), n
+}
 
+function cleanArray(n) {
+    for (var i = [], t = 0; t < n.length; t++)
+        n[t] && i.push(n[t]);
+    return i
+}
 
+var rootURL = getRootURL();
 
 function FilterProductListByBrand(id) {
     debugger;
@@ -26,11 +36,11 @@ function FilterProductListByBrand(id) {
     var url = "";
     var data = {};
     if (id > 0) {
-        url = "/Product/GetAllProductsByBrand";
+        url = rootURL + "/Product/GetAllProductsByBrand";
         data = { brandId: id, categoryId: categoryId };
     }
     else {
-        url = "/Product/CategorySub";
+        url = rootURL + "/Product/CategorySub";
         data = { Id: categoryId };
     }
     $.ajax({

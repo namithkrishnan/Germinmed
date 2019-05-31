@@ -19,7 +19,7 @@
 
 <main id="divMain">
     <section class="banner products-banner" style="@((ViewBag.InnerBanner!=null && ((InnerBanner)ViewBag.InnerBanner).ImageUrl!="/AppFiles/Images/Default.png") ?"background:url("+Url.Content(((InnerBanner)ViewBag.InnerBanner).ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/products-banner.jpg) no-repeat;background-size: cover" )">
-       
+
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -47,26 +47,26 @@
                 <div class="col-md-12">
                     <div class="top-links">
                         <ul class="list-inline" id="rootcat">
-                            @{ 
+                            @{
                                 int i = 0;
                             }
                             @foreach (Category item in Model.Category)
                             {
-                                if (i<4)
+                                if (i < 4)
                                 {
                                     if (item.ParentId == 0)
                                     {
                                         if (Url.RequestContext.RouteData.Values["id"] != null)
                                         {
-                                        <li id="@item.Id" role="presentation" class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "")" >
-                                            <a href="#@(item.Title.ToLower())" aria-controls="@(item.Title.ToLower())" role="tab" data-toggle="tab" onclick="activaTab('@(item.Title.ToLower())')" id="MyTabs" >@item.Title</a>
-                                        </li>
+                                            <li id="@item.Id" role="presentation" class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "") ">
+                                                <a href="#@(item.Title.ToLower())" aria-controls="@(item.Title.ToLower())" role="tab" data-toggle="tab" onclick="activaTab('@(item.Title.ToLower())')" id="MyTabs">@item.Title</a>
+                                            </li>
                                         }
                                         else
                                         {
-                                        <li id="@item.Id" class="">
-                                            <a href="#@(item.Title.ToLower())" aria-controls="@(item.Title.ToLower())" role="tab" data-toggle="tab" onclick="activaTab('@(item.Title.ToLower())')" >@item.Title</a>
-                                        </li>
+                                            <li id="@item.Id" class="">
+                                                <a href="#@(item.Title.ToLower())" aria-controls="@(item.Title.ToLower())" role="tab" data-toggle="tab" onclick="activaTab('@(item.Title.ToLower())')">@item.Title</a>
+                                            </li>
                                         }
                                         i++;
                                     }
@@ -76,7 +76,7 @@
                             <li class="pull-right filter">
                                 Filter by Brand
                                 @Html.DropDownListFor(model => model.BrandId,
-                               new SelectList(Model.Brands, "Id", "Title", "Select Brand"), 
+                               new SelectList(Model.Brands, "Id", "Title", "Select Brand"),
                                new { @class = "fil", onchange = "FilterProductListByBrand(this.value);" })
 
 
@@ -121,21 +121,21 @@
                                             <div class="row">
 
 
-                                                 @Html.Action("CategorySub", "Product", new { id = item.Id })
-                                                
-
-                                            </div>
-
-                                            <div class="row1"  id="divGetAllProductsByCatAction" >
-
-
-                                                </div>
-
-
+                                                @Html.Action("CategorySub", "Product", new { id = item.Id })
 
 
                                             </div>
+
+                                            <div class="row1" id="divGetAllProductsByCatAction">
+
+
+                                            </div>
+
+
+
+
                                         </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -159,10 +159,10 @@
     <script src="~/Scripts/ScriptsClientSide.js"></script>
     <script>
         function GetURLParameter(sParam) {
-          
+
 
             var sPageURL = $(location).attr("href");
-          
+
             var indexOfLastSlash = sPageURL.lastIndexOf("/");
 
             if (indexOfLastSlash > 0 && sPageURL.length - 1 != indexOfLastSlash)
@@ -171,24 +171,23 @@
                 return 0;
         }
 
-   
+
 
         $(document).ready(function () {
-           
+
             var param = GetURLParameter("0");
-            if (param == "Product" || param == "0" )
-            {
-               
+            if (param == "Product" || param == "0") {
+
                 activaTab('dental');
             }
 
-           //$("#Dental").tabs({ active: 0});
+            //$("#Dental").tabs({ active: 0});
         })
 
         function activaTab(tab) {
             debugger;
             $("#BrandId").val(-1);
-            //setTimeout(function () { FilterProductListByBrand(-1) }, 10);
+            setTimeout(function () { FilterProductListByBrand(-1) }, 10);
             $('.list-inline a[href="#' + tab + '"]').tab('show');
         };
 

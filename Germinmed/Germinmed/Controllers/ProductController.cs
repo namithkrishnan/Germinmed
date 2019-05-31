@@ -229,6 +229,7 @@ namespace Germinmed.Controllers
                                  prod1.OfferPercentage,
                                  prod1.ShowInHomePage,
                                  img.ImageUrl,
+                                 prod1.BrandId,
                                  brnd.Title,
                                  prod1.CategoryId
                              }).ToList();
@@ -249,6 +250,7 @@ namespace Germinmed.Controllers
                         objHome.ShowInHomePage = item.ShowInHomePage;
                         objHome.ImageUrl = item.ImageUrl;
                         objHome.BrandTitle = item.Title;
+                        objHome.BrandId = item.BrandId;
                         objHome.CategoryId = item.CategoryId;
                         ProductVMlist.Add(objHome);
                     }
@@ -372,7 +374,7 @@ namespace Germinmed.Controllers
                                    }).ToList();
                 if (brandId > 0)
                 {
-                    productlist = productlist.Where(p => allSubCats.Contains(p.CategoryId) && p.BrandId == brandId).ToList();
+                    productlist = productlist.Where(p => (allSubCats.Contains(p.CategoryId) || p.CategoryId == categoryId) && p.BrandId == brandId).ToList();
                 }
                 else if (categoryId > 0)
                 {

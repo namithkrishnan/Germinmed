@@ -53,7 +53,7 @@
                                 {
                                     if (Url.RequestContext.RouteData.Values["id"] != null)
                                     {
-                                        <li id="@item.Id" role="presentation" class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "")">
+                                        <li id="@item.Id" role="presentation" class=" @(item.Id.ToString() == Url.RequestContext.RouteData.Values["id"].ToString() ? "active" : "") ">
                                             <a href="#@(item.Title.ToLower())" aria-controls="@(item.Title.ToLower())" role="tab" data-toggle="tab" onclick="activaTab('@(item.Title.ToLower())')" id="MyTabs">@item.Title</a>
                                         </li>
                                     }
@@ -167,14 +167,13 @@
         $(document).ready(function () {
 
             var param = GetURLParameter("0");
-           
-            if (param == "Offer" || param=="0" )
-            {
+
+            if (param == "Offer" || param == "0") {
 
                 activaTab('dental');
             }
 
-           //$("#Dental").tabs({ active: 0});
+            //$("#Dental").tabs({ active: 0});
         })
 
         function activaTab(tab) {
