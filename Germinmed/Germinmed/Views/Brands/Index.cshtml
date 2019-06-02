@@ -6,7 +6,7 @@
 }
 
 <main>
-    <section class="banner clients-banner" style="@(ViewBag.InnerBanner!=null ?"background:url("+Url.Content(((InnerBanner)ViewBag.InnerBanner).ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/clients-banner.jpg) no-repeat;background-size: cover" )">
+    <section class="banner clients-banner" style="@(ViewBag.InnerBanner!=null ?"background:url("+Url.Content(HttpUtility.UrlPathEncode(((InnerBanner)ViewBag.InnerBanner).ImageUrl))+") no-repeat;background-size: cover":"background:url(/content/images/clients-banner.jpg) no-repeat;background-size: cover" )">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">

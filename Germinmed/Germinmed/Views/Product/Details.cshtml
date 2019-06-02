@@ -12,7 +12,12 @@
 <link href="~/Content/css/ALightBox.css" rel="stylesheet" />
 <link href="~/Content/css/lightslider.css" rel="stylesheet" />
 <style>
-
+    span.more {
+        color: #626262 !important;
+        font-weight: 300 !important;
+        font-family: 'Open Sans', sans-serif !important;
+        line-height: 25px !important;
+    }
 
     a.morelink {
         font-size: 16px;
@@ -78,66 +83,73 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-6  " data-wow-delay="">
-                    <div class="slider-image">
-                        <div class="center">
-                            <ul id="lightSlider">
-                                @foreach (var item in Model)
+                <div class="col-md-12" style="padding:0px;">
+                    <div class="col-md-6  " data-wow-delay="0.2s">
+                        <div class="slider-image">
+                            <div class="center">
+                                <ul id="lightSlider">
+                                    @foreach (var item in Model)
+                                    {
+
+                                        <li data-thumb="@Url.Content(item.ImageUrl)"> <a class="example-image-link" href="@Url.Content(item.ImageUrl)" data-lightbox="example-set"><img src="@Url.Content(item.ImageUrl)" /></a> </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" data-wow-delay="0.3s">
+                        <div class="product-desc">
+                            @{
+                                if (item1.IsOffer && item1.OfferPercentage != null)
+                                {
+                                    <h3>@item1.ProductName    <span> @item1.OfferPercentage % OFF</span> </h3>
+                                }
+                                else
+                                {
+                                    <h3>@item1.ProductName </h3>
+                                }
+
+                            }
+                            <ul class="width-50 product-list row">
+                                <li class="col-md-6 col-sm-6 col-xs-6 left-item">Category <span>:</span></li>
+                                <li class="col-md-6  col-sm-6 col-xs-6">@item1.CategoryName</li>
+                                <li class="col-md-6 col-sm-6 col-xs-6 left-item">Brand <span>:</span></li>
+                                <li class="col-md-6 col-sm-6 col-xs-6">@item1.BrandTitle</li>
+                                <li class="col-md-6  col-sm-6 col-xs-6 left-item">Item Code <span>:</span></li>
+                                <li class="col-md-6 col-sm-6 col-xs-6">@item1.ItemCode</li>
+                            </ul>
+                            @{ if (@item1.WebUrl != null)
                                 {
 
-                                    <li data-thumb="@Url.Content(item.ImageUrl)"> <a class="example-image-link" href="@Url.Content(item.ImageUrl)" data-lightbox="example-set"><img src="@Url.Content(item.ImageUrl)" /></a> </li>
+
+                                    <div class="web-link"> <img src="~/Content/images/blue-link.png"> <a href="@item1.WebUrl" target="_blank">View Website</a> </div>
                                 }
+                            }
+                            <ul class="list-inline hor-btn">
+                                <li><a class="orange-btn" href="@Url.Action("Index", "Cart", new { id = item1.Id })"><img src="~/Content/images/cart-bag.png">&nbsp;Add to Cart</a></li>
+                                @{ if (@item1.VideoUrl != null)
+                                    {
+
+                                        <li><a class="white-btn alb_item" href="@item1.VideoUrl" target="_blank"><img src="~/Content/images/video-icon.png">&nbsp;Watch Video</a></li>
+                                    }
+                                }
+                                @{ if (@item1.Catalogue != null)
+                                    {
+
+
+                                        <li class="mt"><a class="btn-or" href="@Url.Content("~/" + item1.Catalogue)" target="_blank" download>DOWNLOAD CATELOGUE</a></li>
+                                    }
+                                }
+
                             </ul>
+
+
+
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6" data-wow-delay="">
+                <div class="col-md-12" style="padding-top: 20px;visibility: visible;animation-delay: 0.3s;">
                     <div class="product-desc">
-                        @{
-                            if (item1.IsOffer && item1.OfferPercentage != null)
-                            {
-                                <h3>@item1.ProductName    <span> @item1.OfferPercentage % OFF</span> </h3>
-                            }
-                            else
-                            {
-                                <h3>@item1.ProductName </h3>
-                            }
-
-                        }
-                        <ul class="width-50 product-list row">
-                            <li class="col-md-6 col-sm-6 col-xs-6 left-item">Category <span>:</span></li>
-                            <li class="col-md-6  col-sm-6 col-xs-6">@item1.CategoryName</li>
-                            <li class="col-md-6 col-sm-6 col-xs-6 left-item">Brand <span>:</span></li>
-                            <li class="col-md-6 col-sm-6 col-xs-6">@item1.BrandTitle</li>
-                            <li class="col-md-6  col-sm-6 col-xs-6 left-item">Item Code <span>:</span></li>
-                            <li class="col-md-6 col-sm-6 col-xs-6">@item1.ItemCode</li>
-                        </ul>
-                        @{ if (@item1.WebUrl != null)
-                            {
-
-
-                                <div class="web-link"> <img src="~/Content/images/blue-link.png"> <a href="@item1.WebUrl" target="_blank">View Website</a> </div>
-                            }
-                        }
-                        <ul class="list-inline hor-btn">
-                            <li><a class="orange-btn" href="@Url.Action("Index", "Cart", new { id = item1.Id })"><img src="~/Content/images/cart-bag.png">&nbsp;Add to Cart</a></li>
-                            @{ if (@item1.VideoUrl != null)
-                                {
-
-                                    <li><a class="white-btn alb_item" href="@item1.VideoUrl" target="_blank"><img src="~/Content/images/video-icon.png">&nbsp;Watch Video</a></li>
-                                }
-                            }
-                            @{ if (@item1.Catalogue != null)
-                                {
-
-
-                                    <li class="mt"><a class="btn-or" href="@Url.Content("~/" + item1.Catalogue)" target="_blank" download>DOWNLOAD CATELOGUE</a></li>
-                                }
-                            }
-
-                        </ul>
-
-
                         <div class="product-inner-desc  " data-wow-delay="">
                             <h4 class="pro-title">Product <span>Details</span></h4>
                             <div class="sub-desc"></div>
@@ -149,31 +161,36 @@
 
                                     if (item1.Description != null)
                                     {
-                                        if (item1.Description.Length > 200)
+                                        if (item1.Description.Length > 400)
                                         {
-                                            dLessString = item1.Description.Substring(0, 200);
-                                            dMoreString = item1.Description.Substring(199, item1.Description.Length - 200);
-                                            dFullString = dLessString + "<span id=\"dots1\">...</span><span id=\"more1\">" + dMoreString + "</ span >";
-                                            @Html.Raw(dFullString);
+                                            dLessString = item1.Description.Substring(0, 400);
+                                            //dMoreString = item1.Description.Substring(199, item1.Description.Length - 200);
+                                            //dFullString = dLessString + "<span class='moreellipses' id=\"dots1\">...</span><span class='morecontent' id=\"more1\"><span>" + dMoreString + "</span></ span >";
+                                            dFullString = dLessString + "<span class='moreellipses' id=\"dots1\">...</span>";
+                                            <div id="lesscontentProduct">
+                                                @Html.Raw(dFullString)
+                                            </div>
+                                            <div id='morecontentProduct' style="display:none;">
+                                                @Html.Raw(item1.Description)
+                                            </div>
                                         }
                                         else
                                         {
-                                            @Html.Raw(item1.Description);
+                                            @Html.Raw(item1.Description)
 
                                         }
                                     }
                                 }
 
                             </div>
-                            <a onclick="myFunction1()" id="myBtn1" class="morelink1">Read more</a>
+                            <a onclick="myFunction1()" id="myBtn1" class="morelink">Read more</a> @*morelink1*@
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-6 " data-wow-delay="">
+                <div class="col-md-12" data-wow-delay="0.2s" style="padding-bottom: 15px;visibility: visible;animation-delay: 0.2s;">
                     <div class="tech-bg">
                         <h3>Technical Specifications</h3>
-                        <div class="" >
+                        <div class="">
                             @{
                                 //string LessString = "";
                                 //string MoreString = "";
@@ -181,23 +198,39 @@
 
                                 if (item1.TechnicalSpecifications != null)
                                 {
-                                    @*if (item1.TechnicalSpecifications.Length > 200)
+                                    if (item1.TechnicalSpecifications.Length > 400)
                                     {
-                                        LessString = item1.TechnicalSpecifications.Substring(0, 200);
-                                        MoreString = item1.TechnicalSpecifications.Substring(199, item1.TechnicalSpecifications.Length - 200);
-                                        FullString = LessString + "<span id=\"dots\">...</span><span id=\"more\">" + MoreString + "</ span >";
-                                        @Html.Raw(FullString);
-
+                                        string dLessStringTech = item1.TechnicalSpecifications.Substring(0, 400);
+                                        string dFullStringTech = dLessStringTech + "<span class='moreellipses' id=\"dotsTech1\">...</span>";
+                                        <div id="lesscontentTech">
+                                            @Html.Raw(dFullStringTech)
+                                        </div>
+                                            <div id='morecontentTech' style="display:none;">
+                                                @Html.Raw(item1.TechnicalSpecifications)
+                                            </div>
                                     }
                                     else
-                                    {*@
-                                        @Html.Raw(item1.TechnicalSpecifications);
+                                    {
+                                        @Html.Raw(item1.TechnicalSpecifications)
+                                    }
+
+                                    @*if (item1.TechnicalSpecifications.Length > 200)
+                                        {
+                                            LessString = item1.TechnicalSpecifications.Substring(0, 200);
+                                            MoreString = item1.TechnicalSpecifications.Substring(199, item1.TechnicalSpecifications.Length - 200);
+                                            FullString = LessString + "<span id=\"dots\">...</span><span id=\"more\">" + MoreString + "</ span >";
+                                            @Html.Raw(FullString);
+
+                                        }
+                                        else
+                                        {*@
+                                    @*@Html.Raw(item1.TechnicalSpecifications);*@
 
                                     //}
                                 }
                             }
                         </div>
-                        @*<a onclick="myFunction()" id="myBtn" class="morelink">Read more</a>*@
+                        <a onclick="myFunction()" id="myBtnTech" class="morelink">Read more</a>
 
                     </div>
                 </div>
@@ -221,35 +254,63 @@
         });
 
         function myFunction() {
-            var dots = document.getElementById("dots");
-            var moreText = document.getElementById("more");
-            var btnText = document.getElementById("myBtn");
+            debugger;
+            var dots = document.getElementById("dotsTech1");
+            var btnText = document.getElementById("myBtnTech");
 
             if (dots.style.display === "none") {
                 dots.style.display = "inline";
                 btnText.innerHTML = "Read more";
-                moreText.style.display = "none";
+                $('#morecontentTech').hide();
+                $('#lesscontentTech').show();
             } else {
                 dots.style.display = "none";
                 btnText.innerHTML = "Read less";
-                moreText.style.display = "inline";
+                $('#morecontentTech').show();
+                $('#lesscontentTech').hide();
             }
+            //var dots = document.getElementById("dots");
+            //var moreText = document.getElementById("more");
+            //var btnText = document.getElementById("myBtn");
+
+            //if (dots.style.display === "none") {
+            //    dots.style.display = "inline";
+            //    btnText.innerHTML = "Read more";
+            //    moreText.style.display = "none";
+            //} else {
+            //    dots.style.display = "none";
+            //    btnText.innerHTML = "Read less";
+            //    moreText.style.display = "inline";
+            //}
         }
 
         function myFunction1() {
+            debugger;
             var dots = document.getElementById("dots1");
-            var moreText = document.getElementById("more1");
+            //var moreText = document.getElementById("more1");
             var btnText = document.getElementById("myBtn1");
 
             if (dots.style.display === "none") {
                 dots.style.display = "inline";
                 btnText.innerHTML = "Read more";
-                moreText.style.display = "none";
+                $('#morecontentProduct').hide();
+                $('#lesscontentProduct').show();
             } else {
                 dots.style.display = "none";
                 btnText.innerHTML = "Read less";
-                moreText.style.display = "inline";
+                $('#morecontentProduct').show();
+                $('#lesscontentProduct').hide();
             }
+
+            //if (dots.style.display === "none") {
+            //    dots.style.display = "inline";
+            //    btnText.innerHTML = "Read more";
+            //    moreText.style.display = "none";
+            //} else {
+            //    dots.style.display = "none";
+            //    btnText.innerHTML = "Read less";
+            //    moreText.style.display = "inline";
+            //}
         }
 
 

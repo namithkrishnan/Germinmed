@@ -18,7 +18,7 @@
 <!-- new design   -->
 
 <main id="divMain">
-    <section class="banner products-banner" style="@((ViewBag.InnerBanner!=null && ((InnerBanner)ViewBag.InnerBanner).ImageUrl!="/AppFiles/Images/Default.png") ?"background:url("+Url.Content(((InnerBanner)ViewBag.InnerBanner).ImageUrl)+") no-repeat;background-size: cover":"background:url(/content/images/products-banner.jpg) no-repeat;background-size: cover" )">
+    <section class="banner products-banner" style="@((ViewBag.InnerBanner!=null && ((InnerBanner)ViewBag.InnerBanner).ImageUrl!="/AppFiles/Images/Default.png") ?"background:url("+Url.Content(HttpUtility.UrlPathEncode(((InnerBanner)ViewBag.InnerBanner).ImageUrl))+") no-repeat;background-size: cover":"background:url(/content/images/products-banner.jpg) no-repeat;background-size: cover" )">
 
         <div class="container">
             <div class="row">
