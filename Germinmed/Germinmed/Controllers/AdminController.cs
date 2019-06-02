@@ -18,17 +18,17 @@ namespace Germinmed.Controllers
         public ActionResult Index()
         {
 
-           
+
             return View();
         }
 
-        public ActionResult UserProfile(int id=0)
+        public ActionResult UserProfile(int id = 0)
         {
             return View();
         }
 
 
-        public ActionResult UserDetails(int? id )
+        public ActionResult UserDetails(int? id)
         {
             if (id == null)
             {
@@ -39,12 +39,12 @@ namespace Germinmed.Controllers
 
 
                 Users usr = db.User.Find(id);
-               
+
                 if (usr == null)
                 {
                     return HttpNotFound();
                 }
-               return View(usr);
+                return View(usr);
 
 
             }
@@ -56,7 +56,7 @@ namespace Germinmed.Controllers
             using (GerminmedContext db = new GerminmedContext())
             {
                 vm.OrderCount = db.Orders.Count();
-                vm.UserCount = db.User.Where(x=>x.UserTypeId==1).Count();
+                vm.UserCount = db.User.Where(x => x.UserTypeId == 1).Count();
 
             }
             return View(vm);
@@ -82,7 +82,7 @@ namespace Germinmed.Controllers
         }
 
 
-        public ActionResult ChangePassword(int id=0)
+        public ActionResult ChangePassword(int id = 0)
         {
 
             UserViewModel vm = new UserViewModel();
@@ -98,7 +98,7 @@ namespace Germinmed.Controllers
                 }
             }
             return View(vm);
-            
+
         }
         [HttpPost]
         public ActionResult ChangePassword(UserViewModel usr)
@@ -106,46 +106,46 @@ namespace Germinmed.Controllers
 
             try
             {
-               
+
                 using (GerminmedContext db = new GerminmedContext())
                 {
                     var currentItem = db.User.Where(b => b.Id == usr.Id).FirstOrDefault<Users>();
                     if (currentItem.Password == usr.OldPassword)
                     {
                         currentItem.Password = usr.Password;
-                      //  currentItem.OldPassword = usr.OldPassword;
+                        //  currentItem.OldPassword = usr.OldPassword;
                         currentItem.ConfirmPassword = usr.ConfirmPassword;
                         db.Entry(currentItem).State = EntityState.Modified;
                         db.SaveChanges();
-                        
+
                         return Json(data: new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ChangePassword", model: usr), message = "Password changed Successfully" }, behavior: JsonRequestBehavior.AllowGet);
-                       
+
                     }
                     else
                     {
-                        
-                        return Json(new { success = false, message = "Wrong Old password" }, JsonRequestBehavior.AllowGet); 
+
+                        return Json(new { success = false, message = "Wrong Old password" }, JsonRequestBehavior.AllowGet);
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message =ex.Message}, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-            
 
-        
+
+
 
 
         [HttpPost]
         public ActionResult Autherize(Users userModel)
         {
-         
+
             using (GerminmedContext db = new GerminmedContext())
             {
-                var userDetails = db.User.Where(x => x.UserName == userModel.UserName && x.Password == userModel.Password &&( x.UserTypeId==2 || x.UserTypeId == 3)).FirstOrDefault();
+                var userDetails = db.User.Where(x => x.UserName == userModel.UserName && x.Password == userModel.Password && (x.UserTypeId == 2 || x.UserTypeId == 3)).FirstOrDefault();
                 if (userDetails == null)
                 {
                     userModel.LoginErrorMessage = "Wrong username or password.";
@@ -157,9 +157,9 @@ namespace Germinmed.Controllers
                     Session["userTypeId"] = userDetails.UserTypeId;
                     Session["userName"] = userDetails.UserName;
                     Session["firstName"] = userDetails.FirstName;
-                    Session["CreatedDate"] =userDetails.CreatedDate.Value.ToString("MMM yyyy");
+                    Session["CreatedDate"] = userDetails.CreatedDate.Value.ToString("MMM yyyy");
 
-                        return RedirectToAction("Home", "Admin");
+                    return RedirectToAction("Home", "Admin");
 
                 }
             }
@@ -167,8 +167,11 @@ namespace Germinmed.Controllers
 
         public ActionResult LogOut()
         {
-            int userId = (int)Session["userID"];
-            Session.Abandon();
+            //int userId = (int)Session["userID"];
+            if (Session != null)
+            {
+                Session.Abandon();
+            }
             return RedirectToAction("Index", "Admin");
         }
 
@@ -183,8 +186,8 @@ namespace Germinmed.Controllers
 
                 using (GerminmedContext db = new GerminmedContext())
                 {
-                     vm = db.MailSetting.Where(x => x.Id == id).FirstOrDefault<MailSettings>();
-                   
+                    vm = db.MailSetting.Where(x => x.Id == id).FirstOrDefault<MailSettings>();
+
 
                 }
             }
@@ -218,15 +221,15 @@ namespace Germinmed.Controllers
 
                 using (GerminmedContext db = new GerminmedContext())
                 {
-                    if (mail.Id==0)
+                    if (mail.Id == 0)
                     {
                         db.MailSetting.Add(mail);
                         db.SaveChanges();
                     }
                     else
-                    { 
-                    db.Entry(mail).State = EntityState.Modified;
-                    db.SaveChanges();
+                    {
+                        db.Entry(mail).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
                     return Json(data: new { success = true, html = GlobalClass.RenderRazorViewToString(this, "MailSettings", model: mail), message = "Mail Settings submitted Successfully" }, behavior: JsonRequestBehavior.AllowGet);
 
@@ -246,5 +249,5 @@ namespace Germinmed.Controllers
         }
 
 
-        }
+    }
 }
