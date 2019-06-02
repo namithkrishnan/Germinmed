@@ -44,6 +44,14 @@
     #more1 {
         display: none;
     }
+
+    .descContainer {
+        /*border: 1px solid red;*/
+        height: 400px;
+        overflow-y: scroll;
+        overflow-y: hidden;
+        position: relative;
+    }
 </style>
 
 <main>
@@ -153,85 +161,20 @@
                         <div class="product-inner-desc  " data-wow-delay="">
                             <h4 class="pro-title">Product <span>Details</span></h4>
                             <div class="sub-desc"></div>
-                            <div class="">
-                                @{
-                                    string dLessString = "";
-                                    string dMoreString = "";
-                                    string dFullString = "";
-
-                                    if (item1.Description != null)
-                                    {
-                                        if (item1.Description.Length > 400)
-                                        {
-                                            dLessString = item1.Description.Substring(0, 400);
-                                            //dMoreString = item1.Description.Substring(199, item1.Description.Length - 200);
-                                            //dFullString = dLessString + "<span class='moreellipses' id=\"dots1\">...</span><span class='morecontent' id=\"more1\"><span>" + dMoreString + "</span></ span >";
-                                            dFullString = dLessString + "<span class='moreellipses' id=\"dots1\">...</span>";
-                                            <div id="lesscontentProduct">
-                                                @Html.Raw(dFullString)
-                                            </div>
-                                            <div id='morecontentProduct' style="display:none;">
-                                                @Html.Raw(item1.Description)
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            @Html.Raw(item1.Description)
-
-                                        }
-                                    }
-                                }
-
+                            <div id="ProductDescContainer" class="descContainer">
+                                @Html.Raw(item1.Description)
                             </div>
-                            <a onclick="myFunction1()" id="myBtn1" class="morelink">Read more</a> @*morelink1*@
+                            <a id="productReadMore" class="morelink">Read more</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12" data-wow-delay="0.2s" style="padding-bottom: 15px;visibility: visible;animation-delay: 0.2s;">
                     <div class="tech-bg">
                         <h3>Technical Specifications</h3>
-                        <div class="">
-                            @{
-                                //string LessString = "";
-                                //string MoreString = "";
-                                //string FullString = "";
-
-                                if (item1.TechnicalSpecifications != null)
-                                {
-                                    if (item1.TechnicalSpecifications.Length > 400)
-                                    {
-                                        string dLessStringTech = item1.TechnicalSpecifications.Substring(0, 400);
-                                        string dFullStringTech = dLessStringTech + "<span class='moreellipses' id=\"dotsTech1\">...</span>";
-                                        <div id="lesscontentTech">
-                                            @Html.Raw(dFullStringTech)
-                                        </div>
-                                            <div id='morecontentTech' style="display:none;">
-                                                @Html.Raw(item1.TechnicalSpecifications)
-                                            </div>
-                                    }
-                                    else
-                                    {
-                                        @Html.Raw(item1.TechnicalSpecifications)
-                                    }
-
-                                    @*if (item1.TechnicalSpecifications.Length > 200)
-                                        {
-                                            LessString = item1.TechnicalSpecifications.Substring(0, 200);
-                                            MoreString = item1.TechnicalSpecifications.Substring(199, item1.TechnicalSpecifications.Length - 200);
-                                            FullString = LessString + "<span id=\"dots\">...</span><span id=\"more\">" + MoreString + "</ span >";
-                                            @Html.Raw(FullString);
-
-                                        }
-                                        else
-                                        {*@
-                                    @*@Html.Raw(item1.TechnicalSpecifications);*@
-
-                                    //}
-                                }
-                            }
+                        <div id="TechDescContainer" class="descContainer">
+                            @Html.Raw(item1.TechnicalSpecifications)
                         </div>
-                        <a onclick="myFunction()" id="myBtnTech" class="morelink">Read more</a>
-
+                        <a id="techReadMore" class="morelink">Read more</a>
                     </div>
                 </div>
     </section>
@@ -253,67 +196,41 @@
             showYoutubeThumbnails: true
         });
 
-        function myFunction() {
+        $(document).ready(function () {
             debugger;
-            var dots = document.getElementById("dotsTech1");
-            var btnText = document.getElementById("myBtnTech");
-
-            if (dots.style.display === "none") {
-                dots.style.display = "inline";
-                btnText.innerHTML = "Read more";
-                $('#morecontentTech').hide();
-                $('#lesscontentTech').show();
-            } else {
-                dots.style.display = "none";
-                btnText.innerHTML = "Read less";
-                $('#morecontentTech').show();
-                $('#lesscontentTech').hide();
-            }
-            //var dots = document.getElementById("dots");
-            //var moreText = document.getElementById("more");
-            //var btnText = document.getElementById("myBtn");
-
-            //if (dots.style.display === "none") {
-            //    dots.style.display = "inline";
-            //    btnText.innerHTML = "Read more";
-            //    moreText.style.display = "none";
-            //} else {
-            //    dots.style.display = "none";
-            //    btnText.innerHTML = "Read less";
-            //    moreText.style.display = "inline";
-            //}
-        }
-
-        function myFunction1() {
-            debugger;
-            var dots = document.getElementById("dots1");
-            //var moreText = document.getElementById("more1");
-            var btnText = document.getElementById("myBtn1");
-
-            if (dots.style.display === "none") {
-                dots.style.display = "inline";
-                btnText.innerHTML = "Read more";
-                $('#morecontentProduct').hide();
-                $('#lesscontentProduct').show();
-            } else {
-                dots.style.display = "none";
-                btnText.innerHTML = "Read less";
-                $('#morecontentProduct').show();
-                $('#lesscontentProduct').hide();
+            var hasScroll = $('#ProductDescContainer').hasScrollBar();
+            if (hasScroll == false) {
+                $("#productReadMore").hide();
+                $('#ProductDescContainer').css("height", "auto");
             }
 
-            //if (dots.style.display === "none") {
-            //    dots.style.display = "inline";
-            //    btnText.innerHTML = "Read more";
-            //    moreText.style.display = "none";
-            //} else {
-            //    dots.style.display = "none";
-            //    btnText.innerHTML = "Read less";
-            //    moreText.style.display = "inline";
-            //}
-        }
+            var hasScrollTech = $('#TechDescContainer').hasScrollBar();
+            if (hasScrollTech == false) {
+                $("#techReadMore").hide();
+                $('#TechDescContainer').css("height", "auto");
+            }
+            $(".morelink").click(function () {
+                debugger;
+                if (this.id == "productReadMore") {
+                    handleReadmore($('#ProductDescContainer'), $(this));
+                }
+                else {
+                    handleReadmore($('#TechDescContainer'), $(this));
+                }
+            });
 
-
+            function handleReadmore(container, control) {
+                if (control.text() == "Read more") {
+                    container.css("height", "auto");
+                    container.css("border", "none");
+                    control.text("Read less");
+                }
+                else {
+                    container.css("height", "400px");
+                    control.text("Read more");
+                }
+            }
+        });
 
     </script>
 }
