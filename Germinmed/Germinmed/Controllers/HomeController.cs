@@ -35,57 +35,108 @@ namespace Germinmed.Controllers
             }
             // return View();
         }
-   
+
 
         public ActionResult Search(string search)
         {
-            return View( GetSearchResult(search));
+            return View(GetSearchResult(search));
+        }
+
+        List<int> allSubCats = new List<int>();
+        void GetChilds(int id)
+        {
+            using (GerminmedContext db = new GerminmedContext())
+            {
+                List<int> cats = db.Category.Where(x => x.ParentId == id).Select(y => y.Id).ToList();
+                allSubCats.AddRange(cats);
+                foreach (int item in cats)
+                {
+                    GetChilds(item);
+                }
+            }
         }
 
         public SearchViewModel GetSearchResult(string searchText)
         {
             SearchViewModel vm = new SearchViewModel();
-            GerminmedContext db = new GerminmedContext();
-            List<Events> evet = null;
-            List<Products> prod = null;
-           
+            List<Events> evet = new List<Events>();
+            List<Products> prod = new List<Products>();
+
 
             if (searchText != null && searchText != "")
             {
-                using (var connection = db.Database.Connection)
+                searchText = searchText.ToUpperInvariant();
+                using (GerminmedContext db = new GerminmedContext())
                 {
+                    //Adding Products to list
+                    prod.AddRange(db.Product.Where(p => p.ProductName != null && p.ProductName.ToUpper().Contains(searchText)).ToList());
 
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    var command1 = connection.CreateCommand();
-                    command.CommandText = "EXEC SP_SearchTables @Tablenames = 'Products',@SearchStr  = '%" + searchText + "%' ";
-                    command1.CommandText = "EXEC SP_SearchTables @Tablenames = 'Events',@SearchStr  = '%" + searchText + "%' ";
-
-                    using (var reader = command.ExecuteReader())
+                    //Checking the categories and adding products under it.
+                    List<Category> objCategories = db.Category.Where(p => p.Title != null && p.Title.ToUpper().Contains(searchText)).ToList();
+                    foreach (Category cat in objCategories)
                     {
-                        if (reader.HasRows)
-                            prod = ((IObjectContextAdapter)db)
-                                       .ObjectContext
-                                       .Translate<Products>(reader)
-                                       .ToList();
+                        prod.AddRange(db.Product.Where(p => p.CategoryId == cat.Id).ToList());
+                        allSubCats = new List<int>();
+                        GetChilds(cat.Id);
+                        foreach (int catId in allSubCats)
+                        {
+                            prod.AddRange(db.Product.Where(p => p.CategoryId == catId).ToList());
+                        }
                     }
-                    using (var reader1 = command1.ExecuteReader())
-                    {
-                        if (reader1.HasRows)
-                            evet =
-                               ((IObjectContextAdapter)db)
-                                   .ObjectContext
-                                   .Translate<Events>(reader1)
-                                   .ToList();
-                    }
-                    connection.Close();
+                    prod = prod.GroupBy(p => p.Id).Select(g => g.First()).ToList();
 
+                    //Adding events 
+                    evet.AddRange(db.Event.Where(p => p.Description != null && p.Description.ToUpper().Contains(searchText)).ToList());
                 }
             }
             vm.ProductsList = prod;
             vm.EventList = evet;
             return (vm);
         }
+        //public SearchViewModel GetSearchResult(string searchText)
+        //{
+        //    SearchViewModel vm = new SearchViewModel();
+        //    GerminmedContext db = new GerminmedContext();
+        //    List<Events> evet = null;
+        //    List<Products> prod = null;
+
+
+        //    if (searchText != null && searchText != "")
+        //    {
+        //        using (var connection = db.Database.Connection)
+        //        {
+
+        //            connection.Open();
+        //            var command = connection.CreateCommand();
+        //            var command1 = connection.CreateCommand();
+        //            command.CommandText = "EXEC SP_SearchTables @Tablenames = 'Products',@SearchStr  = '%" + searchText + "%' ";
+        //            command1.CommandText = "EXEC SP_SearchTables @Tablenames = 'Events',@SearchStr  = '%" + searchText + "%' ";
+
+        //            using (var reader = command.ExecuteReader())
+        //            {
+        //                if (reader.HasRows)
+        //                    prod = ((IObjectContextAdapter)db)
+        //                               .ObjectContext
+        //                               .Translate<Products>(reader)
+        //                               .ToList();
+        //            }
+        //            using (var reader1 = command1.ExecuteReader())
+        //            {
+        //                if (reader1.HasRows)
+        //                    evet =
+        //                       ((IObjectContextAdapter)db)
+        //                           .ObjectContext
+        //                           .Translate<Events>(reader1)
+        //                           .ToList();
+        //            }
+        //            connection.Close();
+
+        //        }
+        //    }
+        //    vm.ProductsList = prod;
+        //    vm.EventList = evet;
+        //    return (vm);
+        //}
 
 
         public ActionResult GetFeaturedProducts()
@@ -98,9 +149,9 @@ namespace Germinmed.Controllers
                 // to hold list of Customer and order details
 
                 var productlist = (from prod1 in db.Product
-                                   
+
                                    where prod1.IsFeatured == true
-                                   
+
                                    select new
                                    {
                                        prod1.Id,
@@ -120,10 +171,10 @@ namespace Germinmed.Controllers
 
 
                     objHome.Description = item.Description;
-                    
-                   
-                   // objHome.Description = item.Description;
-                   
+
+
+                    // objHome.Description = item.Description;
+
                     objHome.IsFeatured = item.IsFeatured;
                     objHome.ShowInHomePage = item.ShowInHomePage;
                     objHome.ImageUrl = item.ImagePath;
@@ -151,7 +202,7 @@ namespace Germinmed.Controllers
             return View(GetAllCat());
         }
 
-      
+
 
 
         IEnumerable<Category> GetAllCat()
