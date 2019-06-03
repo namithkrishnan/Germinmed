@@ -3,7 +3,49 @@
     ViewBag.Title = "Search";
     Layout = "~/Views/Shared/_MainSiteLayout.cshtml";
 }
+<style>
+    .descContainer {
+        /*border: 1px solid red;*/
+        height: 400px;
+        overflow-y: scroll;
+        overflow-y: hidden;
+        position: relative;
+    }
+</style>
+@Scripts.Render("~/bundles/jquery")
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        var productList = $(".event-desc");
+        for (var i = 0; i < productList.length; i++) {
+            var product = $(productList[i]);
+            var cont = product.find('#ProductDescContainer');
+            var hasScroll = cont.hasScrollBar();
+            if (hasScroll == false) {
+                product.find("#productReadMore").hide();
+                product.find('#ProductDescContainer').css("height", "auto");
+            }
+        }
 
+        $(".morelink").click(function () {
+            debugger;
+            var cont = $(this).parent().find('#ProductDescContainer');
+            handleReadmore(cont, $(this));
+        });
+
+        function handleReadmore(container, control) {
+            if (control.text() == "Read more") {
+                container.css("height", "auto");
+                container.css("border", "none");
+                control.text("Read less");
+            }
+            else {
+                container.css("height", "400px");
+                control.text("Read more");
+            }
+        }
+    });
+</script>
 
 <main>
     <section class="banner events-banner">
@@ -40,23 +82,27 @@
                             bool noResult = false;
                             if (Model.ProductsList != null)
                             {
-                                <h3>Products</h3>
-                                <br />
+                        <h3>Products</h3>
+                        <br />
                                 foreach (var item in Model.ProductsList)
                                 {
                                     timer = timer + 0.1;
-                                    <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
-                                        <div class="row">
+                        <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
+                            <div class="row">
 
-                                            <div class="col-md-8">
-                                                <div class="event-desc">
-                                                    <h2><a href="@Url.Action("Details", "Product", new { id = item.Id })">@item.ProductName</a></h2>
-                                                    <p>@Html.Raw(item.Description)</p>
-                                                    <a href="@Url.Action("Details", "Product", new { id = item.Id })">Read More</a>
-                                                </div>
-                                            </div>
+                                <div class="col-md-8">
+                                    <div class="event-desc">
+                                        <h2><a href="@Url.Action("Details", "Product", new { id = item.Id })">@item.ProductName</a></h2>
+                                        @*<p>@Html.Raw(item.Description)</p>*@
+                                        <div id="ProductDescContainer" class="descContainer">
+                                            @Html.Raw(item.Description)
                                         </div>
+                                        @*<a href="@Url.Action("Details", "Product", new { id = item.Id })">Read More</a>*@
+                                        <a herf="#" id="productReadMore" style="cursor :pointer;" class="morelink">Read more</a>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
                                 }
                             }
                             else
@@ -70,30 +116,30 @@
 
                         @{ if (Model.EventList != null)
                             {
-                                <h3>Events</h3>
-                                <br />
+                        <h3>Events</h3>
+                        <br />
                                 foreach (var item in Model.EventList)
                                 {
                                     timer = timer + 0.1;
-                                    <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
-                                        <div class="row">
+                        <div class="event-list wow fadeInUp" data-wow-delay="@(timer)s">
+                            <div class="row">
 
-                                            <div class="col-md-8">
-                                                <div class="event-desc">
-                                                    <h2><a href="@Url.Action("EventDetails", "Events", new { id = item.Id })">@item.Title</a></h2>
-                                                    <p>@item.Description</p>
-                                                    <a href="@Url.Action("EventDetails", "Events", new { id = item.Id })">Read More</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="col-md-8">
+                                    <div class="event-desc">
+                                        <h2><a href="@Url.Action("EventDetails", "Events", new { id = item.Id })">@item.Title</a></h2>
+                                        <p>@item.Description</p>
+                                        <a href="@Url.Action("EventDetails", "Events", new { id = item.Id })">Read More</a>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
                                 }
                             }
                             else
                             {
                                 if (noResult == true)
                                 {
-                                    <h4>No Results found</h4>
+                        <h4>No Results found</h4>
                                 }
                             }
                         }
