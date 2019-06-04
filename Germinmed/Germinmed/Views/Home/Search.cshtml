@@ -80,7 +80,7 @@
                         @{
                             double timer = 0.1;
                             bool noResult = false;
-                            if (Model.ProductsList != null)
+                            if (Model.ProductsList != null && Model.ProductsList.Count > 0)
                             {
                         <h3>Products</h3>
                         <br />
@@ -114,7 +114,7 @@
                     <div class="row">
 
 
-                        @{ if (Model.EventList != null)
+                        @{ if (Model.EventList != null && Model.EventList.Count > 0)
                             {
                         <h3>Events</h3>
                         <br />

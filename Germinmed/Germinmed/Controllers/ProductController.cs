@@ -338,7 +338,8 @@ namespace Germinmed.Controllers
                 allSubCats.AddRange(cats);
                 foreach (int item in cats)
                 {
-                    GetChilds(item);
+                    if (id != item)
+                        GetChilds(item);
                 }
             }
         }

@@ -51,9 +51,30 @@ namespace Germinmed.Controllers
                 allSubCats.AddRange(cats);
                 foreach (int item in cats)
                 {
-                    GetChilds(item);
+                    if (id != item)
+                        GetChilds(item);
                 }
             }
+        }
+
+        List<string> FetchSearchInputs(string searchText)
+        {
+            List<string> searchInputs = new List<string>();
+            //Adding the input text without space eg)if user enters product name like S500H or S500 H 
+            searchInputs.Add(searchText.Replace(" ", "").ToUpper());
+            if (searchText.Length >= 3)
+            {
+                searchInputs.Add(searchText.Substring(0, 3).ToUpper());
+            }
+
+            //Spliting the input by space
+            string[] splitString = searchText.Split(' ');
+            foreach (string item in splitString)
+            {
+                searchInputs.Add(item.ToUpper());
+            }
+
+            return searchInputs;
         }
 
         public SearchViewModel GetSearchResult(string searchText)
@@ -62,17 +83,21 @@ namespace Germinmed.Controllers
             List<Events> evet = new List<Events>();
             List<Products> prod = new List<Products>();
 
-
             if (searchText != null && searchText != "")
             {
-                searchText = searchText.ToUpperInvariant();
+                //may be the user searches not an exacting words in the input. So we need to consider the maximum possibilities
+                List<string> searchInputs = FetchSearchInputs(searchText);
+
                 using (GerminmedContext db = new GerminmedContext())
                 {
                     //Adding Products to list
-                    prod.AddRange(db.Product.Where(p => p.ProductName != null && p.ProductName.ToUpper().Contains(searchText)).ToList());
+                    //prod.AddRange(db.Product.Where(p => p.ProductName != null && p.ProductName.ToUpper().Contains(searchText)).ToList());
+                    //prod.AddRange(db.Product.Where(p => p.ProductName != null && searchInputs.Any(p.ProductName.ToUpper().Contains)).ToList());
+                    prod.AddRange(db.Product.Where(p => p.ProductName != null && searchInputs.Any(item => p.ProductName.ToUpper().Contains(item))).ToList());
 
                     //Checking the categories and adding products under it.
-                    List<Category> objCategories = db.Category.Where(p => p.Title != null && p.Title.ToUpper().Contains(searchText)).ToList();
+                    //List<Category> objCategories = db.Category.Where(p => p.Title != null && p.Title.ToUpper().Contains(searchText)).ToList();
+                    List<Category> objCategories = db.Category.Where(p => p.Title != null && searchInputs.Any(item => p.Title.ToUpper().Contains(item))).ToList();
                     foreach (Category cat in objCategories)
                     {
                         prod.AddRange(db.Product.Where(p => p.CategoryId == cat.Id).ToList());
@@ -85,8 +110,15 @@ namespace Germinmed.Controllers
                     }
                     prod = prod.GroupBy(p => p.Id).Select(g => g.First()).ToList();
 
+                    searchText = searchText.ToUpper();
+                    //Adding brands
+                    List<Brands> brands = db.Brand.Where(p => p.Title != null && p.Title.ToUpper().Contains(searchText)).ToList();
+                    List<int> brandIds = brands.Select(p => p.Id).ToList();
+                    prod.AddRange(db.Product.Where(p => p.BrandId != null && brandIds.Contains(p.BrandId.Value)).ToList());
+
                     //Adding events 
                     evet.AddRange(db.Event.Where(p => p.Description != null && p.Description.ToUpper().Contains(searchText)).ToList());
+
                 }
             }
             vm.ProductsList = prod;
