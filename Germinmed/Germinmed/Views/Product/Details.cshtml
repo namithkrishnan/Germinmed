@@ -82,7 +82,7 @@
                 <div class="col-md-12">
                     <div class="breadcrub" style="text-align:left;">
                         <ul class="list-inline">
-                            <li> Home</li>
+                            <li> <a href="@Url.Action("Index","Home")"> Home</a></li>
                             <li><span> / </span> </li>
 
                             <li> @Html.Action("GetCategoryNameBreadcrumb", "Product", new { id = item1.CategoryId })  </li>

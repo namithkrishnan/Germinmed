@@ -15,7 +15,6 @@
 @Scripts.Render("~/bundles/jquery")
 <script type="text/javascript">
     $(document).ready(function () {
-        debugger;
         var productList = $(".event-desc");
         for (var i = 0; i < productList.length; i++) {
             var product = $(productList[i]);
@@ -28,7 +27,6 @@
         }
 
         $(".morelink").click(function () {
-            debugger;
             var cont = $(this).parent().find('#ProductDescContainer');
             handleReadmore(cont, $(this));
         });
@@ -59,9 +57,9 @@
                 <div class="col-md-6">
                     <div class="head-right">
                         <ul class="list-inline">
-                            <li><a href="">Home</a></li>
+                            @*<li><a href="">Home</a></li>
                             <li><span>/</span></li>
-                            <li>Events</li>
+                            <li>Events</li>*@
                         </ul>
                     </div>
                 </div>

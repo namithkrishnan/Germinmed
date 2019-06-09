@@ -563,10 +563,35 @@ namespace Germinmed.Controllers
             }
         }
 
-        public ActionResult ProductSub(int Id)
+        public int GetCategoryId(string Name)
         {
+            int Id = 0;
+            using (GerminmedContext db = new GerminmedContext())
+            {
+                if (string.IsNullOrEmpty(Name) == false)
+                {
+                    Category category = db.Category.Where(x => x.Title.Trim() == Name.Trim()).FirstOrDefault();
+                    if (category != null)
+                    {
+                        Id = category.Id;
+                    }
+                }
+            }
+            return Id;
+        }
+
+        public ActionResult ProductSub(int Id = 0, string Name = "")
+        {
+            if (Id > 0)
+            {
+                ViewBag.CategoryId = Id;
+            }
+            else if (string.IsNullOrEmpty(Name) == false)
+            {
+                Id = GetCategoryId(Name);
+                Url.RequestContext.RouteData.Values["id"] = Id;
+            }
             IEnumerable<Category> cat = GetAllCatByParent(Id);
-            ViewBag.CategoryId = Id;
             return View(cat);
             //if (cat.Count() != 0)
             //    return View(cat);

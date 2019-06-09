@@ -1,12 +1,12 @@
-﻿@using Germinmed.Models
+﻿﻿@using Germinmed.Models
 @{
 
     if (Request.Url.AbsoluteUri == "http://germinmed.com/" || Request.Url.AbsoluteUri == "http://www.germinmed.com/")
     {
         Response.Redirect("~/Home/Index1");
     }
-   
-    
+
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +78,8 @@
                                 }
 
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                <a class="cart-num" href=""><img src="~/Content/images/cart-num.png" alt="" width="30"> <span class="num">@(count1)</span></a></button>
+                                    <a class="cart-num" href=""><img src="~/Content/images/cart-num.png" alt="" width="30"> <span class="num">@(count1)</span></a>
+                                </button>
 
                                 @{ if (count1 > 0)
                                     {
@@ -211,8 +212,10 @@
                                     }
 
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                        <a class="cart-num" href=""><img src="~/Content/images/cart-num.png" width="30" alt="">
-                                        <span class="num">@(count)</span></a>
+                                        <a class="cart-num" href="">
+                                            <img src="~/Content/images/cart-num.png" width="30" alt="">
+                                            <span class="num">@(count)</span>
+                                        </a>
                                     </button>
                                     @{ if (count > 0)
                                         {
@@ -400,7 +403,7 @@
 
     @RenderSection("scripts", required: false)
 
-   
+
     <script src="~/Scripts/ScriptsClientSide.js"></script>
 
 

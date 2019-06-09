@@ -5,5 +5,24 @@
 }
 
 
-@Model.Title1
+@if (String.IsNullOrEmpty(Model.Title1) == false)
+{
+    string[] subs = Model.Title1.Split('/');
+    if (subs.Length > 0)
+    {
+        for (int i = 0; i < subs.Length; i++)
+        {
+            string item = subs[i];
+            if(i > 0)
+            {
+                <span>/</span>
+            }
+            <a href="@Url.Action("ProductSub", "Product", new { Name = item })">@item</a>
 
+        }
+    }
+    else
+    {
+        @Model.Title1
+    }
+}

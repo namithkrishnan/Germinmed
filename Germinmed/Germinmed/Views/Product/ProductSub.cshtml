@@ -58,10 +58,10 @@
                         <div class="product-right">
                             <div class="breadcrub">
                                 <ul class="list-inline">
-                                    <li> Home</li>
+                                    <li> <a href="@Url.Action("Index","Home")"> Home</a></li>
                                     <li><span> / </span> </li>
 
-                                    <li> <a class="bp" href="@Url.Action("Index","Product")"> Products</a></li>
+                                    <li> <a href="@Url.Action("Index","Product")"> Products</a></li>
                                     <li><span> / </span> </li>
                                     <li>@Html.Action("GetCategoryNameBreadcrumb")  </li>
                                 </ul>

@@ -361,7 +361,8 @@ product h2 {
 }
 
 .search-box .search {
-	display: none;
+	display: block;
+	margin-top: -62px;
 }
 .spec-info {
 }
@@ -372,7 +373,10 @@ product h2 {
 	float: none;
 }
 #search {
-	display: none;
+	display: block;
+}
+.logo-left a img{
+	margin-top: 30px;
 }
 .header-top-left {
 	float: none;
