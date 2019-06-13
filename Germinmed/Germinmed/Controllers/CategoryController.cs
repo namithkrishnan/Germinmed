@@ -14,7 +14,7 @@ namespace Germinmed.Controllers
 {
     public class CategoryController : Controller
     {
-        
+
         // GET: Category
         public ActionResult Index()
         {
@@ -23,9 +23,9 @@ namespace Germinmed.Controllers
             {
 
                 catg1.CategoryList = db.Category.ToList<Category>();
-                ViewBag.Data= catg1.CategoryList;
+                ViewBag.Data = catg1.CategoryList;
             }
-                return View();
+            return View();
         }
 
 
@@ -38,8 +38,8 @@ namespace Germinmed.Controllers
         }
 
 
-    
-        
+
+
 
         IEnumerable<Category> GetAll()
         {
@@ -52,7 +52,7 @@ namespace Germinmed.Controllers
                 catg.CategoryList = db.Category
                              .SqlQuery(Category.sqlQuery)
                              .ToList<Category>();
-               // catg.CategoryList.Add(new Category { Id = 0, Title = "[None]" });
+                // catg.CategoryList.Add(new Category { Id = 0, Title = "[None]" });
 
                 return catg.CategoryList;
             }
@@ -61,52 +61,70 @@ namespace Germinmed.Controllers
 
         public ActionResult AddOrEdit(int id = 0)
         {
-        
+            //if (id != 0)
+            //{
             Category catg = new Category();
-            if (id != 0)
+            using (GerminmedContext db = new GerminmedContext())
             {
-
-                using (GerminmedContext db = new GerminmedContext())
+                catg = db.Category.Where(x => x.Id == id).FirstOrDefault<Category>();
+                if(catg == null)
                 {
-                   
-                    catg = db.Category.Where(x => x.Id == id).FirstOrDefault<Category>();
-
-                    catg.CategoryList = db.Category
-                            .SqlQuery(Category.sqlQuery)
-                            .ToList<Category>();
-                    catg.CategoryList.Add(new Category { Id = 0, Title = "[None]"});
-                   
+                    catg = new Category();
                 }
+                if (string.IsNullOrEmpty(catg.InnerBannerImageUrl))
+                {
+                    catg.InnerBannerImageUrl = "~/AppFiles/Images/Default.png";
+                }
+                catg.CategoryList = db.Category
+                        .SqlQuery(Category.sqlQuery)
+                        .ToList<Category>();
+                catg.CategoryList.Add(new Category { Id = 0, Title = "[None]" });
 
             }
-            else
-            {
-                using (GerminmedContext db = new GerminmedContext())
-                {
-                 
-                   catg.CategoryList = db.Category
-                           .SqlQuery(Category.sqlQuery)
-                          .ToList<Category>();
-                   catg.CategoryList.Add(new Category { Id = 0, Title = "[None]" });
-                   
+
+            //}
+            //else
+            //{
+            //    using (GerminmedContext db = new GerminmedContext())
+            //    {
+            //        catg = db.Category.Where(x => x.Id == id).FirstOrDefault<Category>();
+
+            //        catg.CategoryList = db.Category
+            //               .SqlQuery(Category.sqlQuery)
+            //              .ToList<Category>();
+            //       catg.CategoryList.Add(new Category { Id = 0, Title = "[None]" });
 
 
-                }
-            }
-            
+
+            //    }
+            //}
+
 
             return View(catg);
 
         }
 
         [HttpPost]
-        public ActionResult AddOrEdit(Category catg,FormCollection fobj)
+        public ActionResult AddOrEdit(Category catg, FormCollection fobj)
         {
             try
             {
 
                 using (GerminmedContext db = new GerminmedContext())
                 {
+                    if (catg.InnerBannerImageUpload != null)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(catg.InnerBannerImageUpload.FileName);
+                        string extension = Path.GetExtension(catg.InnerBannerImageUpload.FileName);
+                        fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                        catg.InnerBannerImageUrl = "~/AppFiles/Images/" + fileName;
+                        catg.InnerBannerImageUpload.SaveAs(Path.Combine(Server.MapPath("~/AppFiles/Images/"), fileName));
+                    }
+                    else
+                    {
+                        catg.InnerBannerImageUrl = null;
+                    }
+
                     if (catg.Id == 0)
                     {
                         if (catg.ImageUpload != null)
@@ -119,20 +137,7 @@ namespace Germinmed.Controllers
                         }
                         else
                         {
-                            catg.ImageUrl =null;
-                        }
-
-                        if (catg.InnerBannerImageUpload != null)
-                        {
-                            string fileName = Path.GetFileNameWithoutExtension(catg.InnerBannerImageUpload.FileName);
-                            string extension = Path.GetExtension(catg.InnerBannerImageUpload.FileName);
-                            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                            catg.InnerBannerImageUrl = "~/AppFiles/Images/" + fileName;
-                            catg.InnerBannerImageUpload.SaveAs(Path.Combine(Server.MapPath("~/AppFiles/Images/"), fileName));
-                        }
-                        else
-                        {
-                            catg.InnerBannerImageUrl = null;
+                            catg.ImageUrl = null;
                         }
 
                         db.Category.Add(catg);
@@ -157,13 +162,14 @@ namespace Germinmed.Controllers
                         currentItem.Title = catg.Title;
                         currentItem.ParentId = catg.ParentId;
                         currentItem.Description = catg.Description;
-                      //  currentItem.ImageUrl = catg.ImageUrl;
+                        currentItem.InnerBannerImageUrl = catg.InnerBannerImageUrl;
+                        //  currentItem.ImageUrl = catg.ImageUrl;
 
                         db.Entry(currentItem).State = EntityState.Modified;
 
                         db.SaveChanges();
                     }
-                
+
 
                 }
                 return Json(data: new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", model: GetAll()), message = "Submitted Successfully" }, behavior: JsonRequestBehavior.AllowGet);

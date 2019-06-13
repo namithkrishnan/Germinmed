@@ -31,17 +31,16 @@
                 <p class="text-danger">Please upload image Size  276px X 180px</p>
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.InnerBannerImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <img src="@Url.Content(Model.InnerBannerImageUrl)" style="margin:10px" height="200" width="200" id="innerBannerImagePreview" />
-                <input type="file" name="InnerBannerImageUpload" accept="image/jpeg, image/png" onchange="ShowImagePreview(this, document.getElementById('innerBannerImagePreview'))" required="" class="required" />
-                <p class="text-danger">Please upload image Size  1919px X 206px</p>
-                @Html.ValidationMessageFor(model => model.InnerBannerImageUrl, "", new { @class = "text-danger" })
-            </div>
-        </div>
     }
-
+    <div class="form-group">
+        @Html.LabelFor(model => model.InnerBannerImageUrl, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <img src="@Url.Content(Model.InnerBannerImageUrl)" style="margin:10px" height="200" width="200" id="innerBannerImagePreview" />
+            <input type="file" name="InnerBannerImageUpload" accept="image/jpeg, image/png" onchange="ShowImagePreview(this, document.getElementById('innerBannerImagePreview'))" required="" class="required" />
+            <p class="text-danger">Please upload image Size  1919px X 206px</p>
+            @Html.ValidationMessageFor(model => model.InnerBannerImageUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
     @if (Model.CategoryList != null)
     {
         <div class="form-group">
