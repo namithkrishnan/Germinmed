@@ -121,6 +121,20 @@ namespace Germinmed.Controllers
                         {
                             catg.ImageUrl =null;
                         }
+
+                        if (catg.InnerBannerImageUpload != null)
+                        {
+                            string fileName = Path.GetFileNameWithoutExtension(catg.InnerBannerImageUpload.FileName);
+                            string extension = Path.GetExtension(catg.InnerBannerImageUpload.FileName);
+                            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                            catg.InnerBannerImageUrl = "~/AppFiles/Images/" + fileName;
+                            catg.InnerBannerImageUpload.SaveAs(Path.Combine(Server.MapPath("~/AppFiles/Images/"), fileName));
+                        }
+                        else
+                        {
+                            catg.InnerBannerImageUrl = null;
+                        }
+
                         db.Category.Add(catg);
                         db.SaveChanges();
                     }

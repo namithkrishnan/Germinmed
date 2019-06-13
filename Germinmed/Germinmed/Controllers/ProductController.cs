@@ -591,6 +591,12 @@ namespace Germinmed.Controllers
                 Id = GetCategoryId(Name);
                 Url.RequestContext.RouteData.Values["id"] = Id;
             }
+
+            using (GerminmedContext db = new GerminmedContext())
+            {
+                ViewBag.CategoryInnerBanner = db.Category.Where(x => x.Id == Id).FirstOrDefault();
+            }
+
             IEnumerable<Category> cat = GetAllCatByParent(Id);
             return View(cat);
             //if (cat.Count() != 0)

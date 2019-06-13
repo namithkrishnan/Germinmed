@@ -170,6 +170,15 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalClass.cs" />
+    <Compile Include="Migrations\201905092230273_InitialCreate.cs" />
+    <Compile Include="Migrations\201905092230273_InitialCreate.Designer.cs">
+      <DependentUpon>201905092230273_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906131403257_InnerBannerImageUrl.cs" />
+    <Compile Include="Migrations\201906131403257_InnerBannerImageUrl.Designer.cs">
+      <DependentUpon>201906131403257_InnerBannerImageUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Banner.cs" />
     <Compile Include="Models\Branches.cs" />
     <Compile Include="Models\Brands.cs" />
@@ -599,6 +608,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905092230273_InitialCreate.resx">
+      <DependentUpon>201905092230273_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906131403257_InnerBannerImageUrl.resx">
+      <DependentUpon>201906131403257_InnerBannerImageUrl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
