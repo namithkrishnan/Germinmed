@@ -18,7 +18,11 @@ $(function () {
 
 function getRootURL() {
     var n = null, i, t;
-    return location.hostname == "localhost" ? n = location.protocol + "//" + location.hostname + (location.hostname == "localhost" ? ":" + location.port + "/" : "/" + location.pathname.split("/")[1]) : (i = location.pathname.split("/"), t = cleanArray(i), n = location.protocol + "//" + location.host + "/" + t[0] + "/"), n
+    return location.hostname == "localhost" ? n = location.protocol + "//" + location.hostname +
+        (location.hostname == "localhost" ? ":" + location.port + "/" : "/" + location.pathname.split("/")[1])
+        :
+        (i = location.pathname.split("/"), t = cleanArray(i), n = location.protocol + "//" + location.host + "/"), n
+        //(i = location.pathname.split("/"), t = cleanArray(i), n = location.protocol + "//" + location.host + "/" + t[0] + "/"), n
 }
 
 function cleanArray(n) {
