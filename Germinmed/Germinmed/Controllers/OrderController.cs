@@ -27,14 +27,22 @@ namespace Germinmed.Controllers
         {
             using (GerminmedContext db = new GerminmedContext())
             {
-                List<Products> prod = db.Product.ToList<Products>();
-                List<Users> usr = db.User.ToList<Users>();
                 List<Order> ordertList = db.Orders.ToList<Order>();
 
                 foreach (var item in ordertList)
                 {
-                    item.ProducName = db.Product.Where(x => x.Id == item.ProductId).FirstOrDefault<Products>().ProductName;
-                    item.UserName = db.User.Where(x => x.Id == item.UserId).FirstOrDefault<Users>().UserName;
+                    Products product = db.Product.Where(x => x.Id == item.ProductId).FirstOrDefault();
+                    if(product != null)
+                    {
+                        item.ProducName = product.ProductName;
+                    }
+                    Users user = db.User.Where(x => x.Id == item.UserId).FirstOrDefault();
+                    if (user != null)
+                    {
+                        item.UserName = user.UserName;
+                    }
+                    //item.ProducName = db.Product.Where(x => x.Id == item.ProductId).FirstOrDefault<Products>().ProductName;
+                    //item.UserName = db.User.Where(x => x.Id == item.UserId).FirstOrDefault<Users>().UserName;
                 }
                 return ordertList;
             }
