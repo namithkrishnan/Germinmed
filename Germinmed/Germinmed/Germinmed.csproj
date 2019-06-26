@@ -241,6 +241,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\images\about-banner.jpg" />
     <Content Include="Content\images\about-image.png" />
+    <Content Include="Content\images\about-left.jpeg" />
     <Content Include="Content\images\about-left.jpg" />
     <Content Include="Content\images\about.jpg" />
     <Content Include="Content\images\arrow-footer.png" />
