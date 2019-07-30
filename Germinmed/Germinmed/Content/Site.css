@@ -78,6 +78,9 @@ textarea {
     }
 }
 
+.productDesc .wysihtml5-sandbox {
+    height : 1014px!important;
+}
 
 /*div.datatable-wide {
     padding-left: 0;
